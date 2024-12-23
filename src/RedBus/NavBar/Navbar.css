@@ -1,0 +1,36 @@
+body {
+  padding-top: 70px; 
+}
+.HeaderBox{
+    position: fixed !important; 
+    top: 0 ;
+    z-index: 999; 
+    background-color:black !important;
+  
+   }
+  
+   #Logo{
+    height: 70px;
+    border-radius: 50%;
+  }
+   .NavBox{
+      /* display: flex;
+      gap: 150px; */
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      color:white !important;
+      Height: "100px";
+   }
+  
+   .Nav-item {
+      text-decoration: none;
+      padding: 10px;
+      color:white !important;
+    }
+    .Navitem:hover {
+      color: red;
+      font-weight: bold;
+  
+    }
+  

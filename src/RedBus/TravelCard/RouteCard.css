@@ -1,0 +1,96 @@
+ /* Card styles */
+.route-card {
+    width: '100vw';  
+    height: 'auto';
+    margin: '10px auto';
+    border-radius: '10px';
+    box-shadow: '0 4px 8px rgba(0, 0, 0, 0.1)';
+    margin-top: 10px;
+  }
+  
+  .route-card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Travel Details Section */
+  .travel-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .travel-name {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .travel-type {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  .travel-price {
+    margin: 0;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* Timing and Route Section */
+  .timing-route {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .route-from, .route-to {
+    text-align: left;
+  }
+  
+  .route-duration {
+    text-align: center;
+  }
+  
+  .route-label {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .route-highlight {
+    color: #007bff;
+  }
+  
+  .route-time {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  .duration-time {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .duration-label {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+  
+  /* Action Button */
+  .action-button {
+    text-align: right;
+  }
+  
+  .view-seats-btn {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+  }
+  

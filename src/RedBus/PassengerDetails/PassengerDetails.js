@@ -1,57 +1,83 @@
- import React from 'react';
+import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const PassengerDetails = () => {
+  const location = useLocation();
+  const [seatData, setSeatData] = useState(null);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const seatsParam = queryParams.get('seats');
+
+    if (seatsParam) {
+      try {
+        // Decode the seat data from the URL and parse it into an object
+        const decodedSeats = JSON.parse(decodeURIComponent(seatsParam));
+        setSeatData(decodedSeats);
+      } catch (error) {
+        console.error("Error parsing seat data:", error);
+      }
+    }
+  }, [location.search]);
+
+  console.log(seatData); // For debugging purposes
+
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
       <Card style={{ width: "90%", maxWidth: "500px", padding: "20px", borderRadius: "10px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
         <Card.Header className="text-center bg-primary text-white" style={{ fontSize: "1.5rem" }}>Passenger Details</Card.Header>
         <Card.Body>
-          <Form >
-            <Form.Group className="mb-3" controlId="passengerName">
-              <Form.Label>Name of Passenger</Form.Label>
-              <Form.Control type="text" placeholder="Enter your name" required />
-            </Form.Group>
+          <Form>
+            {/* Map through each seat in seatData and create a form for each passenger */}
+            {seatData && seatData.seat.length > 0 && seatData.seat.map((seat, index) => (
+              <div key={seat} style={{ marginBottom: "20px" }}>
+                <h5>Passenger {index + 1} - Seat: {seat}</h5>
 
-            <Form.Group className="mb-3" controlId="passengerGender">
-              <Form.Label>Gender</Form.Label>
-              <div>
-                <Form.Check
-                  inline
-                  label="Male"
-                  name="gender"
-                  type="radio"
-                  id="male"
-                />
-                <Form.Check
-                  inline
-                  label="Female"
-                  name="gender"
-                  type="radio"
-                  id="female"
-                />
+                <Form.Group className="mb-3" controlId={`passengerName-${index}`}>
+                  <Form.Label>Name of Passenger {index + 1}</Form.Label>
+                  <Form.Control type="text" placeholder="Enter your name" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId={`passengerGender-${index}`}>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId={`passengerAge-${index}`}>
+                  <Form.Label>Age</Form.Label>
+                  <Form.Control type="number" placeholder="Enter your age" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId={`passengerEmail-${index}`}>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="email" placeholder="Enter your email" required />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId={`passengerMobile-${index}`}>
+                  <Form.Label>Mobile Number</Form.Label>
+                  <Form.Control type="text" placeholder="Enter your mobile number" required />
+                </Form.Group>
               </div>
-            </Form.Group>
+            ))}
 
-            <Form.Group className="mb-3" controlId="passengerAge">
-              <Form.Label>Age</Form.Label>
-              <Form.Control type="number" placeholder="Enter your age" required/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="passengerEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter your email" required/>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="passengerMobile">
-              <Form.Label>Mobile Number</Form.Label>
-              <Form.Control type="text" placeholder="Enter your mobile number" required/>
-            </Form.Group>
+            {/* Display selected seat and gender for each passenger */}
+            {seatData && seatData.seat.length > 0 && (
+              <div>
+                <h5>Selected Seats:</h5>
+                <ul>
+                  {seatData.seat.map((seat, index) => (
+                    <li key={seat}>
+                      <strong>Seat:</strong> {seat}, <strong>Gender:</strong> {seatData.Gender[index]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="mb-3 text-center" style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#dc3545" }}>
-              Price: ₹10,000
+              Price: ₹10,000 {/* You can dynamically calculate this if needed */}
             </div>
 
             <Button variant="success" size="lg" className="w-100">
@@ -65,6 +91,3 @@ const PassengerDetails = () => {
 };
 
 export default PassengerDetails;
-
-
-

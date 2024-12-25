@@ -1,4 +1,4 @@
-export default function Seat() {
+export default function LowerSeat() {
   return (
     <>
       <svg

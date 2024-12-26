@@ -3,9 +3,13 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
+
+import { TicketPrice } from '../FindBuses/FindingRoutes';
 
 const PassengerDetails = () => {
+  let TicketPrices=useContext(TicketPrice)
+  console.log(TicketPrices,"price")
   const location = useLocation();
   const [seatData, setSeatData] = useState(null);
 
@@ -15,7 +19,7 @@ const PassengerDetails = () => {
 
     if (seatsParam) {
       try {
-        // Decode the seat data from the URL and parse it into an object
+       
         const decodedSeats = JSON.parse(decodeURIComponent(seatsParam));
         setSeatData(decodedSeats);
       } catch (error) {
@@ -24,7 +28,7 @@ const PassengerDetails = () => {
     }
   }, [location.search]);
 
-  console.log(seatData); // For debugging purposes
+  console.log(seatData);  
 
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
@@ -32,7 +36,7 @@ const PassengerDetails = () => {
         <Card.Header className="text-center bg-primary text-white" style={{ fontSize: "1.5rem" }}>Passenger Details</Card.Header>
         <Card.Body>
           <Form>
-            {/* Map through each seat in seatData and create a form for each passenger */}
+
             {seatData && seatData.seat.length > 0 && seatData.seat.map((seat, index) => (
               <div key={seat} style={{ marginBottom: "20px" }}>
                 <h5>Passenger {index + 1} - Seat: {seat}</h5>
@@ -77,7 +81,7 @@ const PassengerDetails = () => {
             )}
 
             <div className="mb-3 text-center" style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#dc3545" }}>
-              Price: ₹10,000 {/* You can dynamically calculate this if needed */}
+              Price: ₹10,000 
             </div>
 
             <Button variant="success" size="lg" className="w-100">

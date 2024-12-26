@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,createContext  } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import RoutesApi from "../API/Api";
 import RouteCard from "../TravelCard/RouteCard";
 import "./FindingRoutes.css"
 
+export let TicketPrice=createContext()
 export default function FindRoutes() {
   const [data, setData] = useState([]);
   const location = useLocation();
@@ -30,6 +31,10 @@ export default function FindRoutes() {
   );
 
   return (
+    <>
+    <TicketPrice.Provider value={"hello"}>  </TicketPrice.Provider>
+
+
     <div className="FindRoutesContainer" style={{marginTop:"43px"}}>
       <h2>Available Routes</h2>
       {filteredData.length > 0 ? (
@@ -50,8 +55,8 @@ export default function FindRoutes() {
       ) : (
         <p>No routes found for the selected criteria.</p>
       )}
- 
     </div>
+    </>
   );
 }
 

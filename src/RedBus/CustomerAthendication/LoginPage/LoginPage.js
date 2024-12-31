@@ -3,8 +3,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./LoginPage.css";
-import { app } from "../../FireBase_Folder/FireBase";
-import { getAuth,signInWithEmailAndPassword } from "firebase/auth";
+ import { app } from "../../FireBase_Folder/FireBase";
+import {getAuth,signInWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from "react-router-dom";
  
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
+import {getAuth,createUserWithEmailAndPassword} from "firebase/auth"
 import { app } from "../../FireBase_Folder/FireBase";
 
 function SignupForm() {
@@ -34,11 +34,6 @@ function SignupForm() {
         signupformData.email,
         signupformData.password
       );
-
-      // Update the user's display name
-      await updateProfile(userCredential.user, {
-        displayName: signupformData.name,
-      });
 
       alert("SignUp successfully");
       navigate("/Login");

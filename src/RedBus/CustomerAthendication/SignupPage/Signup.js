@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
-// import {getAuth,createUserWithEmailAndPassword} from "firebase/auth"
-// import { app } from "../../FireBase_Folder/FireBase";
+ 
 
 function SignupForm() {
-  // const signUpStoreWithFirebase = getAuth(app);
+ 
   const navigate = useNavigate();
   const [signupformData, setsignupFormData] = useState({
     name: "",
@@ -28,19 +27,11 @@ function SignupForm() {
       return;
     }
 
-    try {
-      // const userCredential = await createUserWithEmailAndPassword(
-        // signUpStoreWithFirebase,
-        // signupformData.email,
-        // signupformData.password
-      // );
+   
 
       alert("SignUp successfully");
       navigate("/Login");
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error.message || "An error occurred during signup.");
-    }
+    
   };
 
   return (

@@ -3,14 +3,11 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./LoginPage.css";
-//  import { app } from "../../FireBase_Folder/FireBase";
-// import {getAuth,signInWithEmailAndPassword} from "firebase/auth"
 import { useNavigate } from "react-router-dom";
  
 
 function LoginForm() {
     let Navigate=useNavigate()
-    // let LoginWithFb=getAuth(app)
   const [loginformData, setloginFormData] = useState({
     email: "",
     password: "",
@@ -25,23 +22,9 @@ function LoginForm() {
     e.preventDefault();
     console.log("Login Form Submitted:", loginformData);
    
-    try{
-
-        // let loginSuccess=await signInWithEmailAndPassword(LoginWithFb,loginformData.email,loginformData.password)
-        // if(loginSuccess){
+ 
         alert("suceessfully login")
-        Navigate("/Home")
-        // }
-        // else{
-            // alert("Invalid credential")
-        // }
-    }
-    catch(error){
-        console.log(error)
-    } 
-   
-
-
+        Navigate("/Home")   
 
   };
 

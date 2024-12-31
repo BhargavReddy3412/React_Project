@@ -1,62 +1,220 @@
+
 .HomePageContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url("https://media.istockphoto.com/vectors/bus-stop-on-main-street-citypublic-park-with-bench-and-bus-stop-with-vector-id903584510?k=6&m=903584510&s=612x612&w=0&h=qglAFIgQe5GSNLmxwycSQ2Z2l5DboKD9NvOgviSTh6k=");
-    background-size: 100vw 100vh;
-    background-repeat: no-repeat;
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("https://media.istockphoto.com/vectors/bus-stop-on-main-street-citypublic-park-with-bench-and-bus-stop-with-vector-id903584510?k=6&m=903584510&s=612x612&w=0&h=qglAFIgQe5GSNLmxwycSQ2Z2l5DboKD9NvOgviSTh6k=");
+  background-size: cover;  
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.LeftSide,
+.RightSide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: white;  
+}
+
+.LeftSide {
+  flex: 1;
+}
+
+.RightSide {
+  flex: 1;
+}
+
+ .TravelCaption {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-out;
+}
+
+.TravelTicketCaption{
+  font-size: 2rem;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-out;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.searchConatiner {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.searchConatiner input {
+  width: 13rem;
+  height: 2.5rem;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#SearchDate {
+  width: 28rem;
+  height: 2.5rem;
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.CardBox {
+  width: 30rem;
+  height: 13rem;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);  
+  animation: slideIn 1s ease-out;
+}
+
+#FindBus-btn {
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .HomePageContainer {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;  
+    padding: 10px;
+  }
+
   .LeftSide,
   .RightSide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 50%;
+    width: 100%;
+    padding: 15px;
   }
-  
-  button {
-    margin-top: 20px;
-  }
-  
-  .searchConatiner {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  .searchConatiner > input {
-    width: 13rem;
-    height: 2.5rem;
-  }
-  #SearchDate {
-    width: 28rem;
-    height: 2.5rem;
-    margin-top: 20px;
-  }
-  #HomeBusImg{
-      margin-top: -290px;
-      transform: translateX(39vw);
-      transition-duration:10s;
-      transition: transform 10s ease-in-out; 
-  }
-  .HomeBusImgLeft {
-      transform: translateX(10vw);  
-    }
-  
-    .HeaderBox{
-      position: fixed;
-      top: 0;
-      width: 100vw;
-    }
-  
-    .CardBox{
-      width: 30rem;
-       height: 13rem
-    }
 
-    #FindBus-btn{
-      margin-top:10px;
-    }
+  .searchConatiner {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .searchConatiner input {
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  #SearchDate {
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  .CardBox {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .HomePageContainer {
+    padding: 10px;
+  }
+
+  .LeftSide,
+  .RightSide {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .searchConatiner {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .searchConatiner input,
+  #SearchDate {
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  .CardBox {
+    width: 100%;
+    padding: 20px;
+  }
+
+ .TravelCaption {
+    font-size: 2rem;
+  }
+
+ .TravelTicketCaption{
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .HomePageContainer {
+    padding: 5px;
+  margin-top: 28px;
+
+  }
+
+  .LeftSide,
+  .RightSide {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .searchConatiner {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .searchConatiner input,
+  #SearchDate {
+    width: 100%;
+    height: 2.5rem;
+  }
+
+  .CardBox {
+    width: 100%;
+    padding: 20px;
+  }
+
+ .TravelCaption {
+    font-size: 1.5rem;
+  }
+
+.TravelTicketCaption {
+    font-size: 1.2rem;
+  }
+}
+

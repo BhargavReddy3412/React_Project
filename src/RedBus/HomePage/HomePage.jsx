@@ -28,12 +28,12 @@ export default function HomePage() {
     <>
       <div className="HomePageContainer">
         <div className="LeftSide">
-          <h1>Get Your Ticket Online,</h1>
-          <h1>Easy and Safely</h1>
+          <h1 className="TravelCaption">Get Your Ticket Online,</h1>
+          <h1 className="TravelCaption">Easy and Safely</h1>
           <Button variant="success">Get Ticket Now</Button>
         </div>
         <div className="RightSide">
-          <h2>Choose Your Ticket</h2>
+          <h2 className="TravelTicketCaption">Choose Your Ticket</h2>
           <Card className="mb-2 CardBox">
             <Card.Body>
             <div className="searchConatiner">
@@ -68,11 +68,7 @@ export default function HomePage() {
           </Card>
         </div>
       </div>
-      <img
-        id="HomeBusImg"
-        src="https://png.pngtree.com/png-vector/20240131/ourmid/pngtree-modern-white-bus-side-view-png-image_11576097.png"
-        alt=""
-      />
+    
     
     </>
   );

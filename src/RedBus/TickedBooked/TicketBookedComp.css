@@ -1,0 +1,115 @@
+.container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .ticket-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+
+  .ticket-title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-subtitle {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-details {
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .download-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .ticket-card {
+      padding: 10px;
+    }
+  
+    .ticket-title {
+      font-size: 20px;
+    }
+  
+    .ticket-row {
+      font-size: 14px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .download-btn {
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 768px) and (min-width: 601px) {
+    .ticket-card {
+      padding: 15px;
+    }
+  
+    .ticket-title {
+      font-size: 22px;
+    }
+  
+    .ticket-row {
+      font-size: 15px;
+    }
+  
+    .download-btn {
+      padding: 12px;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .ticket-card {
+      padding: 20px;
+    }
+  
+    .ticket-title {
+      font-size: 24px;
+    }
+  
+    .ticket-row {
+      font-size: 16px;
+    }
+  }
+  

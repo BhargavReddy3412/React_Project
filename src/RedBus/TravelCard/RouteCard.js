@@ -1,46 +1,64 @@
-import React from "react";
+import React,{useContext} from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import "./RouteCard.css";
+import { TravelContext } from "../API/ContextApi/ContextApi";
 
 function RouteCard(props) {
- let navigate=useNavigate()
+  const { setSelectedTravel } = useContext(TravelContext); // Access the context
+  const navigate = useNavigate();
 
- let handleBookingSeats=()=>{
-  navigate("/Home/BookSeat")
-  }
+  const { BusName, BusType, Price, FromAddress, TimeFrom, JourneyTime, ToAddress, TimeDestnation,Date } = props;
+
+  const handleBookingSeats = () => {
+    setSelectedTravel({
+      BusName,
+      BusType,
+      Price,
+      FromAddress,
+      TimeFrom,
+      JourneyTime,
+      ToAddress,
+      TimeDestnation,
+      Date,
+    });
+    navigate("/Home/BookSeat");
+  };
+
   return (
     <Card className="route-card">
       <Card.Body className="route-card-body">
-        {/* Travel Details Section */}
         <div className="travel-details">
           <div>
-            <h5 className="travel-name">{props.BusName}</h5>
-            <p className="travel-type">{props.BusType}</p>
+            <h5 className="travel-name">{BusName}</h5>
+            <p className="travel-type">{BusType}</p>
           </div>
           <div>
-            <h5 className="travel-price">Price : ₹ {props.Price}</h5>
+            <h5 className="travel-price">Price : ₹ {Price}</h5>
           </div>
         </div>
 
-        {/* Timing and Route Section */}
         <div className="timing-route">
           <div className="route-from">
-            <p className="route-label">From: <span className="route-highlight">{props.FromAddress}</span></p>
-            <p className="route-time">{props.TimeFrom}</p>
+            <p className="route-label">
+              From: <span className="route-highlight">{FromAddress}</span>
+            </p>
+            <p className="route-time">{TimeFrom}</p>
           </div>
           <div className="route-duration">
-            <p className="duration-time">{props.JourneyTime}</p>
+            <p className="duration-time">{JourneyTime}</p>
             <p className="duration-label">Duration</p>
+            <p>Date:{Date.toString().split("T")[0].split("-").reverse().join("-")}</p>
           </div>
           <div className="route-to">
-            <p className="route-label">To: <span className="route-highlight">{props.ToAddress}</span></p>
-            <p className="route-time">{props.TimeDestnation}</p>
+            <p className="route-label">
+              To: <span className="route-highlight">{ToAddress}</span>
+            </p>
+            <p className="route-time">{TimeDestnation}</p>
           </div>
         </div>
 
-        {/* Action Button */}
         <div className="action-button">
           <Button className="view-seats-btn" variant="danger" onClick={handleBookingSeats}>
             View Seats

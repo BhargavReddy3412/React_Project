@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
-import {getAuth,createUserWithEmailAndPassword} from "firebase/auth"
-import { app } from "../../FireBase_Folder/FireBase";
+// import {getAuth,createUserWithEmailAndPassword} from "firebase/auth"
+// import { app } from "../../FireBase_Folder/FireBase";
 
 function SignupForm() {
-  const signUpStoreWithFirebase = getAuth(app);
+  // const signUpStoreWithFirebase = getAuth(app);
   const navigate = useNavigate();
   const [signupformData, setsignupFormData] = useState({
     name: "",
@@ -29,11 +29,11 @@ function SignupForm() {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        signUpStoreWithFirebase,
-        signupformData.email,
-        signupformData.password
-      );
+      // const userCredential = await createUserWithEmailAndPassword(
+        // signUpStoreWithFirebase,
+        // signupformData.email,
+        // signupformData.password
+      // );
 
       alert("SignUp successfully");
       navigate("/Login");

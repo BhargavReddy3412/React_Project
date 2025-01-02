@@ -4,10 +4,13 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
+import {getAuth,signInWithEmailAndPassword} from "firebase/auth"
+import { app } from "../../FireBase_Folder/FireBase";
  
 
 function LoginForm() {
     let Navigate=useNavigate()
+    let LoginWithFireBase=getAuth(app)
   const [loginformData, setloginFormData] = useState({
     email: "",
     password: "",
@@ -22,9 +25,16 @@ function LoginForm() {
     e.preventDefault();
     console.log("Login Form Submitted:", loginformData);
    
+    try{
+     let LoginSuccess=await signInWithEmailAndPassword(LoginWithFireBase,loginformData.email,loginformData.password)
+     alert("login Success")
+     Navigate("/Home")   
+
+    }
+    catch(err){
+          alert("Invalid credentials")
+    }
  
-        alert("suceessfully login")
-        Navigate("/Home")   
 
   };
 

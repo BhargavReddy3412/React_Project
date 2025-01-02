@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
- 
+import {getAuth,createUserWithEmailAndPassword } from "firebase/auth";
+import { app } from "../../FireBase_Folder/FireBase";
 
 function SignupForm() {
- 
   const navigate = useNavigate();
+  let signUpDoneWithFireBase=getAuth(app)
   const [signupformData, setsignupFormData] = useState({
     name: "",
     email: "",
@@ -25,13 +26,30 @@ function SignupForm() {
     if (signupformData.password !== signupformData.confirmPassword) {
       setErrorMessage("Passwords do not match!");
       return;
+    } 
+ 
+    try {
+      // Firebase signup
+      console.log("Attempting to sign up with:", signupformData);
+      const sendinguserData = await createUserWithEmailAndPassword(
+        signUpDoneWithFireBase,
+        signupformData.email,
+        signupformData.password
+      );
+      console.log("Firebase response:", sendinguserData);
+
+      alert("Sign up successful!");
+      navigate("/Login");  
+    } catch (err) {
+      console.error("Firebase error:", err);
+      setErrorMessage(`Signup failed: ${err.message}`);
     }
 
-   
 
-      alert("SignUp successfully");
-      navigate("/Login");
     
+
+
+   
   };
 
   return (
@@ -87,7 +105,9 @@ function SignupForm() {
             required
           />
         </div>
-        <button type="submit" className="submit-button">Submit</button>
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
       </form>
       <div className="already-account">
         <p>
@@ -99,3 +119,6 @@ function SignupForm() {
 }
 
 export default SignupForm;
+
+
+ 

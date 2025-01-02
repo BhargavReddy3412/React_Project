@@ -1,13 +1,15 @@
+ // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
- 
 const firebaseConfig = {
-  apiKey: "AIzaSyBMML19o9a2Ko3znHF-XjVnySUBSku_Z0c",
-  authDomain: "travelbus-auth.firebaseapp.com",
-  projectId: "travelbus-auth",
-  storageBucket: "travelbus-auth.firebasestorage.app",
-  messagingSenderId: "457373987526",
-  appId: "1:457373987526:web:0a36ba06603b36c9feddc7",
-  measurementId: "G-GVHLQRMM9B"
+  apiKey: "AIzaSyBVka6J6EcB9l1d3cquZMem4IzhNFCzfhU",
+  authDomain: "traveler-authendication.firebaseapp.com",
+  projectId: "traveler-authendication",
+  storageBucket: "traveler-authendication.firebasestorage.app",
+  messagingSenderId: "375695830400",
+  appId: "1:375695830400:web:a9b9589916c19a69ea6565",
+  measurementId: "G-8J9FTEJNPY"
 };
 
+// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+ 

@@ -40,18 +40,18 @@
   }
   
   .input-field {
-    height: 50px; /* Increase the height */
-    font-size: 1.2rem; /* Increase the font size */
+    height: 50px;  
+    font-size: 1.2rem;  
   }
   
   .submit-button {
     width: 100%;
-    padding: 15px; /* Increase the padding */
+    padding: 15px;  
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: white;
-    font-size: 18px; /* Increase the font size */
+    font-size: 18px;  
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
   }

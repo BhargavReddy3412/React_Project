@@ -22,6 +22,8 @@ export default function HomePage() {
         alert("Please fill in all the fields.");
         return;
     }
+
+    
     navigate("/Home/routes", { state: formData });
 };
   return (

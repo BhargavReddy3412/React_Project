@@ -40,6 +40,9 @@ function NavScrollExample() {
               </Link>
             </Nav>
           </Navbar.Collapse>
+          <Link to="/" className="Navitem">
+            <span>Signup</span>
+          </Link>
           <Link to="/Login" className="Navitem">
             <span>Login</span>
           </Link>

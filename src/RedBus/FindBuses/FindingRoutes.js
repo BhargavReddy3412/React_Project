@@ -47,7 +47,7 @@ export default function FindRoutes() {
             BusType={route.busType}
              TimeFrom={route.timeFrom}
              TimeDestnation={route.timeDestination}
-             Date={SearchDate}
+             BookedDate={SearchDate}
           />
         ))
       ) : (

@@ -1,0 +1,87 @@
+.Blog-Page{
+  margin-top: 80px;
+}
+
+.blogPage-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.blogPage-busCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.blogPage-busCard>img {
+  object-fit: cover;
+  height: 200px;
+}
+
+.blogPage-busCard .card-body {
+  background-color: #f8f9fa;
+}
+
+.blogPage-busCard:hover {
+  transform: translateY(-10px);
+}
+
+.blogPage-header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.blogPage-busTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.blogPage-busDescription {
+  font-size: 1rem;
+  color: #555;
+}
+
+.blogPage-moreDetailsBtn {
+  font-size: 1rem;
+  padding: 10px 15px;
+}
+
+@media (min-width: 1200px) {
+  .blogPage-busCard {
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .blogPage-busCard {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .blogPage-busCard {
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .card-img-top {
+    height: 180px;
+  }
+
+  .blogPage-busCard .card-body {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 150px;
+  }
+
+  .blogPage-busCard .card-body {
+    padding: 5px;
+  }
+}

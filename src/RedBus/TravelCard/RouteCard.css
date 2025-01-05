@@ -1,95 +1,173 @@
-.route-card {
-    width: '100vw';  
-    height: 'auto';
-    margin: '10px auto';
-    border-radius: '10px';
-    box-shadow: '0 4px 8px rgba(0, 0, 0, 0.1)';
-    margin-top: 10px;
+ .route-card {
+  width: 100%;
+  max-width: 700px;
+  margin: 10px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.route-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.route-card-body {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.travel-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.travel-name {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.travel-type {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.travel-price {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.timing-route {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.route-from,
+.route-to {
+  text-align: left;
+  flex: 1;
+  min-width: 120px;
+}
+
+.route-duration {
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+}
+
+.route-label {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.route-highlight {
+  color: #007bff;
+}
+
+.route-time {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.duration-time {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.duration-label {
+  margin: 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.action-button {
+  text-align: right;
+}
+
+.view-seats-btn {
+  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+.view-seats-btn:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  .route-card {
+    margin: 10px 15px;
   }
-  
+
   .route-card-body {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    padding: 10px;
+    gap: 8px;
   }
-  
-  .travel-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
+
   .travel-name {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
+    font-size: 1rem;
   }
-  
-  .travel-type {
-    margin: 0;
-    color: #888;
+
+  .travel-price {
+    font-size: 1rem;
+  }
+
+  .route-label {
     font-size: 0.9rem;
   }
-  
-  .travel-price {
-    margin: 0;
-    font-weight: bold;
-    color: #007bff;
+
+  .route-time,
+  .duration-label {
+    font-size: 0.8rem;
   }
-  
+
+  .view-seats-btn {
+    padding: 6px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .route-card {
+    margin: 10px;
+  }
+
   .timing-route {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
   }
-  
-  .route-from, .route-to {
-    text-align: left;
-  }
-  
+
+  .route-from,
+  .route-to,
   .route-duration {
     text-align: center;
+    flex: none;
   }
-  
-  .route-label {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .route-highlight {
-    color: #007bff;
-  }
-  
-  .route-time {
-    margin: 0;
-    color: #888;
-    font-size: 0.9rem;
-  }
-  
-  .duration-time {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .duration-label {
-    margin: 0;
-    color: #888;
-    font-size: 0.9rem;
-  }
-  
-  /* Action Button */
-  .action-button {
-    text-align: right;
-  }
-  
+
   .view-seats-btn {
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-transform: uppercase;
+    width: 100%;
+    padding: 10px;
   }
-  
+}
 
  

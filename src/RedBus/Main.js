@@ -1,5 +1,8 @@
  import NavScrollExample from "./NavBar/Navbar";
 import HomePage from "./HomePage/HomePage";
+import AboutPage from "./AboutPage/Aboutpage";
+import BlogPage from "./BlogPage/BlogPage";
+import ContactPage from "./ContactPage/ContactPage";
 import Footer from "./Footer/Footer";
 import FindRoutes from "./FindBuses/FindingRoutes";
 import TextExample from "./BookingSeat/SeatBooking"
@@ -10,32 +13,37 @@ import PaymentComp from "./Payment/PaymentComp";
 import SignupForm from "./CustomerAthendication/SignupPage/Signup";
 import LoginForm from "./CustomerAthendication/LoginPage/LoginPage";
 import TicketBookedComp from "./TickedBooked/TicketBookedComp";
+import { UserProfileInfoRTFBProvider } from "./API/ContextApi/RealTimeDataBaseUserProfile";
 
 export default function RedbusAllFiles() {
   return (
     <Router>
       <NavScrollExample />
       <TravelProvider>
+        <UserProfileInfoRTFBProvider>
       <Routes>
         <Route path="/" element={<SignupForm/>}/>
         <Route path="/Login" element={<LoginForm/>}/>
         <Route path="/Home" element={<HomePage />} />
-        {/* <Route path="/About" element={<About />} /> */}
-        {/* <Route path="/FAQs" element={<FAQs />} /> */}
-        {/* <Route path="/Blog" element={<Blog />} /> */}
-        {/* <Route path="/Contact" element={<Contact />} /> */}
+        <Route path="/About" element={<AboutPage />} />
+        <Route path="/Blog" element={<BlogPage />} />
+        <Route path="/Contact" element={<ContactPage />} />
         <Route path="/Home/routes/" element={<FindRoutes />} />
         <Route path="/Home/BookSeat" element={<TextExample/>} />
         <Route path="/Home/Details" element={<PassengerDetails/>}/>
         <Route path="/Home/Payment" element={<PaymentComp />}/>
         <Route path="/Home/TicketConform" element={<TicketBookedComp/>}/>  
-
+  
       </Routes>
       {/* <Footer /> */}
+      </UserProfileInfoRTFBProvider>
       </TravelProvider>
+ 
     </Router>
     
   );
 }
 
  
+
+

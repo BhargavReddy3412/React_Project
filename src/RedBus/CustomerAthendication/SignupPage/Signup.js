@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
-import {getAuth,createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../FireBase_Folder/FireBase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 
 function SignupForm() {
   const navigate = useNavigate();
-  let signUpDoneWithFireBase=getAuth(app)
+  const signUpDoneWithFireBase = getAuth(app);
+
   const [signupformData, setsignupFormData] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
@@ -26,30 +29,38 @@ function SignupForm() {
     if (signupformData.password !== signupformData.confirmPassword) {
       setErrorMessage("Passwords do not match!");
       return;
-    } 
- 
+    }
+
     try {
-      // Firebase signup
       console.log("Attempting to sign up with:", signupformData);
-      const sendinguserData = await createUserWithEmailAndPassword(
+
+      // Create user in Firebase Authentication
+      const sendingUserData = await createUserWithEmailAndPassword(
         signUpDoneWithFireBase,
         signupformData.email,
         signupformData.password
       );
-      console.log("Firebase response:", sendinguserData);
 
-      alert("Sign up successful!");
-      navigate("/Login");  
+      // If user creation is successful, store additional data in Realtime Database
+      if (sendingUserData) {
+        const user = sendingUserData.user;
+        const database = getDatabase(app);
+
+        // Store user data in Realtime Database
+        await set(ref(database, `users/${user.uid}`), {
+          name: signupformData.name,
+          email: signupformData.email,
+          password:signupformData.password
+        });
+        
+
+        alert("Sign up successful!");
+        navigate("/Login");
+      }
     } catch (err) {
       console.error("Firebase error:", err);
       setErrorMessage(`Signup failed: ${err.message}`);
     }
-
-
-    
-
-
-   
   };
 
   return (
@@ -119,6 +130,3 @@ function SignupForm() {
 }
 
 export default SignupForm;
-
-
- 

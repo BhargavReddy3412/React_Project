@@ -1,47 +1,32 @@
-body {
-  padding-top: 70px;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
+ 
 .HeaderBox {
   position: fixed !important;
   top: 0;
   width: 100%;
+ 
   z-index: 999;
-  background-color: black !important;
+  background-color: #444;
   padding: 0.5rem 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 #Logo {
-  height: 70px;
+  height: 50px;
   border-radius: 50%;
-}
-
-/* Navbar Container */
-.NavContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
 }
 
 .NavBox {
   display: flex;
   gap: 20px;
-  color: white !important;
   align-items: center;
-  flex-wrap: wrap;  
 }
 
 .Nav-item {
   text-decoration: none;
   padding: 10px;
-  color: white !important;
+  color: white;
   font-size: 1rem;
   font-weight: 500;
-  transition: color 0.3s ease;
 }
 
 .Nav-item:hover {
@@ -50,39 +35,64 @@ body {
 }
 
 .Navitem {
-  text-decoration: none;
-  padding: 10px 15px;
-  color: white !important;
-  font-size: 1rem;
-  font-weight: 500;
-  border: 1px solid white;
-  border-radius: 5px;
-  transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.Navitem:hover {
-  background-color: red;
   color: white;
 }
 
+ 
 
-.Navbar.Toggle {
-  border-color: white;
+
+.HiddenOnSmall {
+  display: none ;
 }
 
-.Navbar.Collapse {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  width: 100%;
+ 
+@media (min-width: 769px) {
+  .HeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .NavbarLogo {
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+
+  .NavBox {
+    flex-grow: 1;
+    justify-content: flex-start;
+  }
+
+  .Navitem {
+    margin-left: 20px;
+  }
+
+ 
+  .HiddenOnLarge {
+    display: none !important;
+  }
+
+  
+  .HiddenOnSmall {
+    display: inline-block;
+  }
 }
 
 @media (max-width: 768px) {
+  .HeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .NavbarLogo {
+    margin:0,10px ;
+  }
+
   .NavBox {
     flex-direction: column;
     align-items: center;
-    gap: 15px;
   }
 
   .Nav-item {
@@ -90,7 +100,12 @@ body {
     text-align: center;
   }
 
-  .Navitem {
-    margin-top: 10px;
+ 
+  .HiddenOnLarge {
+    display: inline-block;  
+  }
+
+  .HiddenOnSmall {
+    display: none; 
   }
 }

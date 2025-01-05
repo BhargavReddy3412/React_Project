@@ -1,5 +1,5 @@
 .BookingContainer {
-    margin-top: 50px;
+    margin-top: 100px;
 }
 
 .LowerDeskContainer {
@@ -129,7 +129,7 @@ table td {
     }
 
     .Seat-Info {
-        margin-top: 130px;
+        margin-top: 0px;
         margin-left: -20px;
     }
 
@@ -164,7 +164,15 @@ table td {
     }
 
     .ConfirmBtn {
-        width: auto;  
+        width:400px;  
         padding: 10px 20px;
+        margin-left: -350px;
+        margin-top: 10px;
+        border-radius: 5px;
+        background-color:blue;
     }
+    .ConfirmBtn:hover{
+        background-color: green;
+    } 
+
 }

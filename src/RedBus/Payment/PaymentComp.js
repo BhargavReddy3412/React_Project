@@ -8,15 +8,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./PaymentComp.css";
-
 const PaymentComp = () => {
-  let Navigate=useNavigate()
+  let Navigate = useNavigate();
   const location = useLocation();
   const { PaymentBookedSeat, PaymentBookedPrice } = location.state || {};
 
- 
   const [ticketPrice, setTicketPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [couponCode, setCouponCode] = useState("");
@@ -28,13 +26,11 @@ const PaymentComp = () => {
     { code: "SAVE20", label: "Get ₹20 off instantly!", color: "#4CAF50" },
     { code: "FREESHIP", label: "Free shipping for your next order!", color: "#2196F3" },
   ];
- 
 
   useEffect(() => {
     if (PaymentBookedSeat && PaymentBookedPrice) {
       setTicketPrice(PaymentBookedPrice * PaymentBookedSeat.length);
     }
-
   }, [PaymentBookedSeat, PaymentBookedPrice]);
 
   const handleApplyCoupon = () => {
@@ -57,23 +53,22 @@ const PaymentComp = () => {
 
   const finalPrice = ticketPrice - discount;
 
-let handleTicketConform=()=>{
-
-  Navigate("/Home/TicketConform",{state:{
-    TicketSeats:PaymentBookedSeat,
-    TicketPrice:finalPrice
-  }})
-}
-
-
+  const handleTicketConform = () => {
+    Navigate("/Home/TicketConform", {
+      state: {
+        TicketSeats: PaymentBookedSeat,
+        TicketPrice: finalPrice,
+      },
+    });
+  };
 
   return (
     <Container className="py-5">
       <Row className="justify-content-center mb-4">
         <Col xs={12} lg={8}>
-          <h2 className="text-center mb-4">Payment Portal</h2>
           <Card className="shadow-lg p-4">
             <Card.Body>
+              <h1>Payment Page</h1>
               <h4 className="mb-4 text-center">Available Coupons</h4>
               <Carousel fade interval={3000} className="mb-4">
                 {coupons.map((coupon, index) => (
@@ -134,7 +129,12 @@ let handleTicketConform=()=>{
                 <span>₹{finalPrice}</span>
               </div>
 
-              <Button variant="success" className="w-100 mt-4" onClick={handleTicketConform}>
+              <Button
+                variant="success"
+                className="w-100 mt-4"
+                onClick={handleTicketConform}
+                disabled={!selectedPayment} // Button is disabled if no payment method is selected
+              >
                 Proceed to Pay ₹{finalPrice}
               </Button>
             </Card.Body>

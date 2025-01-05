@@ -4,13 +4,18 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { TravelContext } from "../API/ContextApi/ContextApi";
+import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
+import { getDatabase, ref, set, push, get } from "firebase/database";
+import { app } from "../FireBase_Folder/FireBase";
+import "./PassengerDetails.css";
 
 const PassengerDetails = () => {
   const location = useLocation();
   const { seat } = location.state;
 
+  const { userProfileRTFB } = useContext(UserProfileInfoRTFBContext);
   const { selectedTravel } = useContext(TravelContext);
-  const { Price } = selectedTravel;
+  const { Price, BusName, BusType, FromAddress, ToAddress, BookedDate } = selectedTravel;
   let navigate = useNavigate();
 
   const [passengerDetails, setPassengerDetails] = useState(
@@ -19,7 +24,7 @@ const PassengerDetails = () => {
       age: "",
       email: "",
       mobile: "",
-      gender: "Not Specified",  
+      gender: "Not Specified",
     }))
   );
 
@@ -29,69 +34,93 @@ const PassengerDetails = () => {
     setPassengerDetails(updatedDetails);
   };
 
-  const handlePayment = () => {
-    navigate("/Home/Payment", {
-      state: {
-        PaymentBookedSeat: seat,
-        PaymentBookedPrice: Price,
-        PassengerDetails: passengerDetails,
-      },
-    });
+  const handlePayment = async () => {
+    const isValid = passengerDetails.every(
+      (passenger) =>
+        passenger.name.trim() &&
+        passenger.age.trim() &&
+        passenger.email.trim() &&
+        passenger.mobile.trim() &&
+        passenger.gender !== "Not Specified"
+    );
+
+    if (!isValid) {
+      alert("Please fill in all passenger details before proceeding.");
+      return;
+    }
+
+    try {
+      const database = getDatabase(app);
+
+      const ticketDetails = seat.map((seatNo, index) => ({
+        seatNumber: seatNo,
+        passengerName: passengerDetails[index].name,
+        passengerAge: passengerDetails[index].age,
+        passengerEmail: passengerDetails[index].email,
+        passengerMobile: passengerDetails[index].mobile,
+        passengerGender: passengerDetails[index].gender,
+      }));
+
+      const newBooking = {
+        tickets: ticketDetails,
+        totalPrice: Price * seat.length,
+        bookingTime: new Date().toISOString(),
+        fromAddress: FromAddress,
+        toAddress: ToAddress,
+        travelName: BusName,
+        travelType: BusType,
+        travelDate: BookedDate,
+      };
+
+      const bookingsRef = ref(database, `Bookings/${userProfileRTFB.name}`);
+      const userBookingsSnapshot = await get(bookingsRef);
+      const userBookings = userBookingsSnapshot.exists() ? userBookingsSnapshot.val() : [];
+      userBookings.push(newBooking);
+      await set(bookingsRef, userBookings);
+
+      const bookedSeatsRef = ref(database, `BookedSeats/${BusName}`);
+      const bookedSeatsSnapshot = await get(bookedSeatsRef);
+      const existingBookedSeats = bookedSeatsSnapshot.exists() ? bookedSeatsSnapshot.val() : [];
+
+      const newSeatData = {
+        ConformedSeats: seat,
+        BookedDate: BookedDate,
+        ConformedFromAddress: FromAddress,
+        ConformedToAddress: ToAddress,
+        ConformedTravelName: BusName,
+        ConformedTravelType: BusType,
+        ConformedTravelDate: BookedDate,
+      };
+
+      existingBookedSeats.push(newSeatData);
+      await set(bookedSeatsRef, existingBookedSeats);
+
+      alert("Tickets booked successfully!");
+
+      navigate("/Home/Payment", {
+        state: {
+          PaymentBookedSeat: seat,
+          PaymentBookedPrice: Price * seat.length,
+          PassengerDetails: passengerDetails,
+        },
+      });
+    } catch (error) {
+      console.error("Error storing booking details:", error);
+      alert("There was an error processing your booking. Please try again.");
+    }
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center"
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(to bottom, #e0f7fa, #ffffff)",
-        padding: "20px",
-      }}
-    >
-      <Card
-        style={{
-          width: "100%",
-          maxWidth: "600px",
-          padding: "20px",
-          borderRadius: "15px",
-          boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <Card.Header
-          className="text-center"
-          style={{
-            backgroundColor: "#007bff",
-            color: "white",
-            fontSize: "1.8rem",
-            fontWeight: "bold",
-            borderRadius: "10px 10px 0 0",
-            padding: "15px",
-          }}
-        >
+    <div className="passenger-details-container">
+      <Card className="passenger-details-card">
+        <Card.Header className="passenger-details-header">
           Passenger Details
         </Card.Header>
         <Card.Body>
           <Form>
             {seat.map((seatNo, index) => (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "20px",
-                  backgroundColor: "#f8f9fa",
-                  padding: "15px",
-                  borderRadius: "10px",
-                  border: "1px solid #ddd",
-                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                }}
-              >
-                <h5
-                  style={{
-                    fontWeight: "bold",
-                    color: "#555",
-                    marginBottom: "10px",
-                  }}
-                >
+              <div className="passenger-details-form-group" key={index}>
+                <h5 className="passenger-details-title">
                   Passenger for Seat No: {seatNo}
                 </h5>
                 <Form.Group className="mb-3">
@@ -130,7 +159,7 @@ const PassengerDetails = () => {
                 <Form.Group className="mb-3">
                   <Form.Label>Mobile</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     placeholder="Enter mobile number"
                     value={passengerDetails[index].mobile}
                     onChange={(e) =>
@@ -154,26 +183,13 @@ const PassengerDetails = () => {
                 </Form.Group>
               </div>
             ))}
-            <div
-              className="mb-4 text-center"
-              style={{
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-                color: "#ff6f61",
-              }}
-            >
+            <div className="passenger-details-total">
               Total Price: ₹{Price * seat.length || 0}
             </div>
-
             <Button
               variant="success"
               size="lg"
-              className="w-100"
-              style={{
-                borderRadius: "10px",
-                fontWeight: "bold",
-                fontSize: "1.1rem",
-              }}
+              className="passenger-details-button"
               onClick={handlePayment}
             >
               Proceed to Pay

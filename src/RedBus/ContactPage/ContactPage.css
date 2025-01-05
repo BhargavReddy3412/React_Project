@@ -1,0 +1,38 @@
+.contact-page {
+    margin-top: 50px;
+  }
+  .ContactPage-cardContainetr{
+    width: 10000px !important;
+  }
+  .contact-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;  
+  }
+  
+  .contact-card .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .contact-card .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    text-align: center;
+  }
+  
+  .contact-card .form-control {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-card .form-check {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-card .btn-primary {
+    display: block;
+    width: 100%;
+  }
+  

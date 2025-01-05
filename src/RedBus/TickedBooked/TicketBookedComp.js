@@ -9,7 +9,7 @@ import './TicketBookedComp.css'; // Import the external CSS file
 const TicketBookedComp = () => {
   const ticketRef = useRef(null);
   const { selectedTravel } = useContext(TravelContext);
-  const { BusName, BusType, FromAddress, TimeFrom, ToAddress, Date: travelDate } = selectedTravel;
+  const { BusName, BusType, FromAddress, TimeFrom, ToAddress, BookedDate } = selectedTravel;
   const location = useLocation();
   const { TicketSeats, TicketPrice } = location.state || {};
 
@@ -50,7 +50,7 @@ const TicketBookedComp = () => {
             </div>
             <div className="ticket-row">
               <strong>Date:</strong>
-              <span>{travelDate || new Date().toLocaleDateString()}</span>
+              <span>{BookedDate || new Date().toLocaleDateString()}</span>
             </div>
             <div className="ticket-row">
               <strong>Journey Time:</strong>

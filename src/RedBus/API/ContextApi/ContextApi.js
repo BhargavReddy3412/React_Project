@@ -13,7 +13,7 @@ export  const TravelProvider = ({ children }) => {
     JourneyTime:"Not Cofirmed",
     ToAddress:"To",
     TimeDestnation:"",
-    Date:"",
+    BookedDate:"",
   }
   );
 

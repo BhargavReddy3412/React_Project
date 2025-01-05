@@ -9,7 +9,7 @@ function RouteCard(props) {
   const { setSelectedTravel } = useContext(TravelContext); // Access the context
   const navigate = useNavigate();
 
-  const { BusName, BusType, Price, FromAddress, TimeFrom, JourneyTime, ToAddress, TimeDestnation,Date } = props;
+  const { BusName, BusType, Price, FromAddress, TimeFrom, JourneyTime, ToAddress, TimeDestnation,BookedDate } = props;
 
   const handleBookingSeats = () => {
     setSelectedTravel({
@@ -21,7 +21,7 @@ function RouteCard(props) {
       JourneyTime,
       ToAddress,
       TimeDestnation,
-      Date,
+      BookedDate,
     });
     navigate("/Home/BookSeat");
   };
@@ -49,7 +49,7 @@ function RouteCard(props) {
           <div className="route-duration">
             <p className="duration-time">{JourneyTime}</p>
             <p className="duration-label">Duration</p>
-            <p>Date:{Date.toString().split("T")[0].split("-").reverse().join("-")}</p>
+            <p>Date:{BookedDate.toString().split("T")[0].split("-").reverse().join("-")}</p>
           </div>
           <div className="route-to">
             <p className="route-label">

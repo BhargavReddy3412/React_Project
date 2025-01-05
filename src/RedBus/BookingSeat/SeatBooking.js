@@ -1,30 +1,76 @@
-import Card from 'react-bootstrap/Card';
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import axios from "axios";
+import Card from "react-bootstrap/Card";
 import LowerSeat from "./LowerSeatComp";
-import UpperSeat from './UpperSeatComp';
+import UpperSeat from "./UpperSeatComp";
+import { TravelContext } from "../API/ContextApi/ContextApi";
 import "./SeatBooking.css";
 
 function TextExample() {
+  const [allBookedSeats, setAllBookedSeats] = useState({});
   const [seatStatus, setSeatStatus] = useState({});
+  const [selectedSeat, setSelectedSeat] = useState({ seat: [], Gender: [] });
   const [isConfirmed, setIsConfirmed] = useState(false);
-  let [selectedSeat, setSelectedSeat] = useState({
-    seat: [],
-    Gender: [],
-  });
+  const [gender, setGender] = useState("");
   const [cnfrm, setCnfrm] = useState(false);
-  let navigate = useNavigate();
 
-  const [gender, setGender] = useState("");  
+  const { selectedTravel } = useContext(TravelContext);
+  const { BusName, FromAddress, ToAddress, BookedDate } = selectedTravel;
+
+  const navigate = useNavigate();
+
+  // Fetch booked seats data on component mount
+  useEffect(() => {
+    const fetchBookedSeats = async () => {
+      try {
+        const response = await axios.get(
+          "https://traveler-authendication-default-rtdb.firebaseio.com/BookedSeats.json"
+        );
+        setAllBookedSeats(response.data);
+      } catch (error) {
+        console.error("Error fetching booked seats:", error);
+      }
+    };
+    fetchBookedSeats();
+  }, []);
+
+  // Process booked seats for the selected travel
+  useEffect(() => {
+    if (allBookedSeats[BusName]) {
+      const bookedSeats = allBookedSeats[BusName]
+        .filter(
+          (booking) =>
+            booking.ConformedFromAddress === FromAddress &&
+            booking.ConformedToAddress === ToAddress &&
+            booking.BookedDate === BookedDate
+        )
+        .flatMap((booking) => booking.ConformedSeats);
+
+      const updatedSeatStatus = {};
+      bookedSeats.forEach((seat) => {
+        updatedSeatStatus[seat] = { gender: "booked", color: "black" };
+      });
+      setSeatStatus(updatedSeatStatus);
+    }
+  }, [allBookedSeats, BusName, FromAddress, ToAddress, BookedDate]);
 
   const handleBookingSeat = (seatId) => {
+    // Prevent selecting already booked seats
+    if (seatStatus[seatId]?.gender === "booked") {
+      alert("This seat is already booked.");
+      return;
+    }
+
     if (isConfirmed) {
       alert("Seats are confirmed. You cannot change the selection.");
       return;
     }
 
     if (seatStatus[seatId]) {
-      const updatedSelectedSeats = selectedSeat.seat.filter((seat) => seat !== seatId);
+      const updatedSelectedSeats = selectedSeat.seat.filter(
+        (seat) => seat !== seatId
+      );
       setSelectedSeat({ ...selectedSeat, seat: updatedSelectedSeats });
 
       const updatedStatus = { ...seatStatus };
@@ -52,47 +98,85 @@ function TextExample() {
     const seatInfo = seatStatus[seatId];
     return {
       backgroundColor: seatInfo ? seatInfo.color : "white",
+      pointerEvents: seatInfo?.gender === "booked" ? "none" : "auto",
     };
   };
 
   const handleConformSeats = () => {
-    if (Object.keys(seatStatus).length === 0) {
+    if (selectedSeat.seat.length === 0) {
       alert("No seats selected. Please select at least one seat to confirm.");
       return;
     }
-  
+
     navigate("/Home/Details", { state: selectedSeat });
     setIsConfirmed(true);
     alert("Seats confirmed successfully!");
     setCnfrm(true);
   };
-
   return (
     <div className="BookingContainer">
       <p>Click on an Available seat to proceed with your transaction.</p>
       
       <div>
-        <label>
-          <input
+       
+          <input 
             type="radio"
             name="gender"
             value="male"
             checked={gender === "male"}
             onChange={() => setGender("male")}
           />
-          Male
+  <label className='InputRadio-Btn'>
+       <b>Male</b> 
         </label>
-        <label>
+       
           <input
+
             type="radio"
             name="gender"
             value="female"
             checked={gender === "female"}
             onChange={() => setGender("female")}
           />
-          Female
+ <label className='InputRadio-Btn'>
+        <b>Female</b>
         </label>
       </div>
+
+
+<Card className='UpperDesk'>
+        <Card.Body>
+          <p>Upper Desk</p>
+          <table className='UpperDesk-Table'>
+            <tbody className='UpperDesk-Table-Body'>
+              <tr className='UpperDesk-Table-Row'>
+                <td onClick={() => handleBookingSeat("U-A1")} style={getSeatStyle("U-A1")}><UpperSeat Seat="U-A1" /></td>
+                <td onClick={() => handleBookingSeat("U-A2")} style={getSeatStyle("U-A2")}><UpperSeat Seat="U-A2" /></td>
+                <td onClick={() => handleBookingSeat("U-A3")} style={getSeatStyle("U-A3")}><UpperSeat Seat="U-A3" /></td>
+                <td onClick={() => handleBookingSeat("U-A4")} style={getSeatStyle("U-A4")}><UpperSeat Seat="U-A4" /></td>
+                <td onClick={() => handleBookingSeat("U-A5")} style={getSeatStyle("U-A5")}><UpperSeat Seat="U-A5" /></td>
+                <td onClick={() => handleBookingSeat("U-A6")} style={getSeatStyle("U-A6")}><UpperSeat Seat="U-A6" /></td>
+              </tr>
+              <tr className='UpperDesk-Table-Row'>
+                <td onClick={() => handleBookingSeat("U-B1")} style={getSeatStyle("U-B1")}><UpperSeat Seat="U-B1" /></td>
+                <td onClick={() => handleBookingSeat("U-B2")} style={getSeatStyle("U-B2")}><UpperSeat Seat="U-B2" /></td>
+                <td onClick={() => handleBookingSeat("U-B3")} style={getSeatStyle("U-B3")}><UpperSeat Seat="U-B3" /></td>
+                <td onClick={() => handleBookingSeat("U-B4")} style={getSeatStyle("U-B4")}><UpperSeat Seat="U-B4" /></td>
+                <td onClick={() => handleBookingSeat("U-B5")} style={getSeatStyle("U-B5")}><UpperSeat Seat="U-B5" /></td>
+                <td onClick={() => handleBookingSeat("U-B6")} style={getSeatStyle("U-B6")}><UpperSeat Seat="U-B6" /></td>
+              </tr>
+              <tr className='UpperDesk-Table-Row'>
+                <td onClick={() => handleBookingSeat("U-C1")} style={getSeatStyle("U-C1")}><UpperSeat Seat="U-C1" /></td>
+                <td onClick={() => handleBookingSeat("U-C2")} style={getSeatStyle("U-C2")}><UpperSeat Seat="U-C2" /></td>
+                <td onClick={() => handleBookingSeat("U-C3")} style={getSeatStyle("U-C3")}><UpperSeat Seat="U-C3" /></td>
+                <td onClick={() => handleBookingSeat("U-C4")} style={getSeatStyle("U-C4")}><UpperSeat Seat="U-C4" /></td>
+                <td onClick={() => handleBookingSeat("U-C5")} style={getSeatStyle("U-C5")}><UpperSeat Seat="U-C5" /></td>
+                <td onClick={() => handleBookingSeat("U-C6")} style={getSeatStyle("U-C6")}><UpperSeat Seat="U-C6" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </Card.Body>
+      </Card>
 
       <div className='LowerDeskContainer'>
         <Card className='LowerDesk'>
@@ -146,47 +230,22 @@ function TextExample() {
         </div>
       </div>
 
-      <Card className='UpperDesk'>
-        <Card.Body>
-          <p>Upper Desk</p>
-          <table className='UpperDesk-Table'>
-            <tbody className='UpperDesk-Table-Body'>
-              <tr className='UpperDesk-Table-Row'>
-                <td onClick={() => handleBookingSeat("U-A1")} style={getSeatStyle("U-A1")}><UpperSeat Seat="U-A1" /></td>
-                <td onClick={() => handleBookingSeat("U-A2")} style={getSeatStyle("U-A2")}><UpperSeat Seat="U-A2" /></td>
-                <td onClick={() => handleBookingSeat("U-A3")} style={getSeatStyle("U-A3")}><UpperSeat Seat="U-A3" /></td>
-                <td onClick={() => handleBookingSeat("U-A4")} style={getSeatStyle("U-A4")}><UpperSeat Seat="U-A4" /></td>
-                <td onClick={() => handleBookingSeat("U-A5")} style={getSeatStyle("U-A5")}><UpperSeat Seat="U-A5" /></td>
-                <td onClick={() => handleBookingSeat("U-A6")} style={getSeatStyle("U-A6")}><UpperSeat Seat="U-A6" /></td>
-              </tr>
-              <tr className='UpperDesk-Table-Row'>
-                <td onClick={() => handleBookingSeat("U-B1")} style={getSeatStyle("U-B1")}><UpperSeat Seat="U-B1" /></td>
-                <td onClick={() => handleBookingSeat("U-B2")} style={getSeatStyle("U-B2")}><UpperSeat Seat="U-B2" /></td>
-                <td onClick={() => handleBookingSeat("U-B3")} style={getSeatStyle("U-B3")}><UpperSeat Seat="U-B3" /></td>
-                <td onClick={() => handleBookingSeat("U-B4")} style={getSeatStyle("U-B4")}><UpperSeat Seat="U-B4" /></td>
-                <td onClick={() => handleBookingSeat("U-B5")} style={getSeatStyle("U-B5")}><UpperSeat Seat="U-B5" /></td>
-                <td onClick={() => handleBookingSeat("U-B6")} style={getSeatStyle("U-B6")}><UpperSeat Seat="U-B6" /></td>
-              </tr>
-              <tr className='UpperDesk-Table-Row'>
-                <td onClick={() => handleBookingSeat("U-C1")} style={getSeatStyle("U-C1")}><UpperSeat Seat="U-C1" /></td>
-                <td onClick={() => handleBookingSeat("U-C2")} style={getSeatStyle("U-C2")}><UpperSeat Seat="U-C2" /></td>
-                <td onClick={() => handleBookingSeat("U-C3")} style={getSeatStyle("U-C3")}><UpperSeat Seat="U-C3" /></td>
-                <td onClick={() => handleBookingSeat("U-C4")} style={getSeatStyle("U-C4")}><UpperSeat Seat="U-C4" /></td>
-                <td onClick={() => handleBookingSeat("U-C5")} style={getSeatStyle("U-C5")}><UpperSeat Seat="U-C5" /></td>
-                <td onClick={() => handleBookingSeat("U-C6")} style={getSeatStyle("U-C6")}><UpperSeat Seat="U-C6" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </Card.Body>
-      </Card>
-
+    
       <div>
         <button className="ConfirmBtn" onClick={handleConformSeats}>
-          {cnfrm === false ? "Confirm your Seat(s)" : "Seats Confirmed!"}
+          {cnfrm === false ? "Confirm your Seat" : "Seats Confirmed!"}
         </button>
       </div>
     </div>
   );
+ 
 }
 
 export default TextExample;
+
+
+
+
+
+
+ 

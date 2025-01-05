@@ -35,7 +35,7 @@ export default function RedbusAllFiles() {
         <Route path="/Home/TicketConform" element={<TicketBookedComp/>}/>  
   
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
       </UserProfileInfoRTFBProvider>
       </TravelProvider>
  

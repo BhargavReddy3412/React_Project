@@ -15,12 +15,14 @@ import LoginForm from "./CustomerAthendication/LoginPage/LoginPage";
 import TicketBookedComp from "./TickedBooked/TicketBookedComp";
 import { UserProfileInfoRTFBProvider } from "./API/ContextApi/RealTimeDataBaseUserProfile";
 
+import UserProfile from "./UserProfile/UserProfile";
+
 export default function RedbusAllFiles() {
   return (
     <Router>
+       <TravelProvider>
+       <UserProfileInfoRTFBProvider>
       <NavScrollExample />
-      <TravelProvider>
-        <UserProfileInfoRTFBProvider>
       <Routes>
         <Route path="/" element={<SignupForm/>}/>
         <Route path="/Login" element={<LoginForm/>}/>
@@ -33,6 +35,7 @@ export default function RedbusAllFiles() {
         <Route path="/Home/Details" element={<PassengerDetails/>}/>
         <Route path="/Home/Payment" element={<PaymentComp />}/>
         <Route path="/Home/TicketConform" element={<TicketBookedComp/>}/>  
+        <Route path="/profile" element={<UserProfile />} />
   
       </Routes>
       <Footer />
@@ -45,5 +48,4 @@ export default function RedbusAllFiles() {
 }
 
  
-
-
+ 

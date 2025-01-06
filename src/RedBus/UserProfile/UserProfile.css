@@ -1,0 +1,50 @@
+
+.user-profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #007bff;
+    margin-top: 20px;
+  }
+  
+  
+  .user-details-card, .user-tickets-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-details-card:hover, .user-tickets-card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }
+  
+  .ticket-item {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ticket-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .profile-not-found {
+    text-align: center;
+    color: #ff4d4d;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  

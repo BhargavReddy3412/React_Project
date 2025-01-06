@@ -124,10 +124,10 @@ const PassengerDetails = () => {
                   Passenger for Seat No: {seatNo}
                 </h5>
                 <Form.Group className="mb-3">
-                  <Form.Label>Name</Form.Label>
+ 
                   <Form.Control
                     type="text"
-                    placeholder="Enter name"
+                    placeholder="Enter Passenger name"
                     value={passengerDetails[index].name}
                     onChange={(e) =>
                       handleInputChange(index, "name", e.target.value)
@@ -135,10 +135,10 @@ const PassengerDetails = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>Age</Form.Label>
+ 
                   <Form.Control
                     type="number"
-                    placeholder="Enter age"
+                    placeholder="Enter Passenger Age"
                     value={passengerDetails[index].age}
                     onChange={(e) =>
                       handleInputChange(index, "age", e.target.value)
@@ -146,10 +146,10 @@ const PassengerDetails = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>Email</Form.Label>
+        
                   <Form.Control
                     type="email"
-                    placeholder="Enter email"
+                    placeholder="Enter Email"
                     value={passengerDetails[index].email}
                     onChange={(e) =>
                       handleInputChange(index, "email", e.target.value)
@@ -157,7 +157,7 @@ const PassengerDetails = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>Mobile</Form.Label>
+ 
                   <Form.Control
                     type="number"
                     placeholder="Enter mobile number"
@@ -168,14 +168,13 @@ const PassengerDetails = () => {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label>Gender</Form.Label>
                   <Form.Select
                     value={passengerDetails[index].gender}
                     onChange={(e) =>
                       handleInputChange(index, "gender", e.target.value)
                     }
                   >
-                    <option value="Not Specified">Not Specified</option>
+                    <option value="Not Specified">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>

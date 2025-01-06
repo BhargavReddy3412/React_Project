@@ -1,9 +1,11 @@
  // AboutPage.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AboutPage.css";
 
 function AboutPage() {
   const [showMore, setShowMore] = useState(false);
+  let navigate=useNavigate()
 
   const handleReadMore = () => {
     setShowMore(!showMore);
@@ -41,7 +43,7 @@ function AboutPage() {
               <button onClick={handleReadMore} className="AboutPage-button">
                 {showMore ? "Show Less" : "Read More"}
               </button>
-              <a href="#contact-us" className="AboutPage-button">Contact Us</a>
+              <a href="#contact-us" className="AboutPage-button" onClick={() => navigate("/Contact")}>Contact Us</a>
             </div>
           </div>
           <div className="AboutPage-bus-image">

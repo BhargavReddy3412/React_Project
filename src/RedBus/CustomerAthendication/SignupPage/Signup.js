@@ -116,7 +116,7 @@ function SignupForm() {
             required
           />
         </div>
-        <button type="submit" className="submit-button">
+        <button type="submit" className="SignUpsubmit-button">
           Submit
         </button>
       </form>

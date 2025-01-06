@@ -7,8 +7,19 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import { FaUserCircle } from "react-icons/fa"; // Importing user profile icon
 import "./Navbar.css";
 import RedBusLogo from "../images/RedBusLogo.avif";
+import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NavScrollExample() {
+  const userProfileRTFB = useContext(UserProfileInfoRTFBContext);
+  const navigate = useNavigate();
+
+ 
+  const isUserLoggedIn = userProfileRTFB.userProfileRTFB?.name !== undefined;
+
+  let username = userProfileRTFB.userProfileRTFB?.name || "user";
+
   return (
     <Navbar expand="lg" className="HeaderBox">
       <Container fluid>
@@ -37,14 +48,25 @@ function NavScrollExample() {
             <Link to="/Contact" className="Nav-item">
               Contact
             </Link>
-            <Link to="/profile" className="Nav-item HiddenOnLarge">
-              Profile
-            </Link>
-            <Link to="/logout" className="Nav-item HiddenOnLarge">
-              Logout
-            </Link>
+
+          
+            {isUserLoggedIn ? (
+              <>
+                <Link to="/profile" className="Nav-item HiddenOnLarge">
+                  Profile
+                </Link>
+                <Link to="/login" className="Nav-item HiddenOnLarge">
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <Link to="/login" className="Nav-item HiddenOnLarge">
+                Login
+              </Link>
+            )}
           </Nav>
 
+          {/* Dropdown for user profile on small screens */}
           <DropdownButton
             align="end"
             id="dropdown-user-profile"
@@ -53,17 +75,22 @@ function NavScrollExample() {
             drop="start"
             title={<FaUserCircle size={30} />}
           >
-             <Dropdown.Item >
-               VAmsi
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/profile">
-              Profile
-            </Dropdown.Item>
-            <Dropdown.Item as={Link} to="/logout">
-              Logout
-            </Dropdown.Item>
+            {isUserLoggedIn ? (
+              <>
+                <Dropdown.Item>{username}</Dropdown.Item>
+                <Dropdown.Item onClick={() => navigate("/profile")}>
+                  Profile
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/login">
+                  Logout
+                </Dropdown.Item>
+              </>
+            ) : (
+              <Dropdown.Item as={Link} to="/login">
+                Login
+              </Dropdown.Item>
+            )}
           </DropdownButton>
-
         </Navbar.Collapse>
       </Container>
     </Navbar>

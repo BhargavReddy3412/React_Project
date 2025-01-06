@@ -12,7 +12,7 @@ import "./LoginPage.css"
 function LoginForm() {
     const navigate = useNavigate();
     const loginAuth = getAuth(app);
-    const { setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext); // Correct usage of context
+    const { setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext);  
     const [loginformData, setLoginFormData] = useState({
         email: "",
         password: "",
@@ -81,7 +81,7 @@ function LoginForm() {
                     <Card.Title className="text-center">Login Page</Card.Title>
                     <Form onSubmit={handleSubmit} className="login-form">
                         <Form.Group controlId="formEmail" className="form-group">
-                            <Form.Label>Email</Form.Label>
+                            <Form.Label>Email:</Form.Label>
                             <Form.Control
                                 type="email"
                                 name="email"
@@ -93,7 +93,7 @@ function LoginForm() {
                             />
                         </Form.Group>
                         <Form.Group controlId="formPassword" className="form-group">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Password:</Form.Label>
                             <Form.Control
                                 type="password"
                                 name="password"

@@ -64,6 +64,7 @@ table td {
     border: 1px solid #ddd;
 }
 
+
 @media (max-width: 768px) {
     .LowerDeskContainer {
         flex-direction: column;
@@ -169,10 +170,6 @@ table td {
         margin-left: -350px;
         margin-top: 10px;
         border-radius: 5px;
-        background-color:blue;
     }
-    .ConfirmBtn:hover{
-        background-color: green;
-    } 
 
 }

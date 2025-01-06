@@ -1,59 +1,122 @@
 .passenger-details-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
-    padding: 20px;
-    margin-top:65px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  padding: 20px;
+  margin-top: 65px;
+}
+
+.passenger-details-card {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+
+.passenger-details-header {
+  background-color: #007bff;
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+  padding: 15px;
+  text-align: center;
+}
+
+.passenger-details-form-group {
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.passenger-details-title {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.passenger-details-total {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff6f61;
+}
+
+.passenger-details-button {
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+.passenger-details-form-group input,
+.passenger-details-form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+}
+
+.passenger-details-form-group label {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.mb-3 {
+  display: flex !important;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
   .passenger-details-card {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
+    width: 90%;
+    padding: 15px;
   }
-  
+
   .passenger-details-header {
-    background-color: #007bff;
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    border-radius: 10px 10px 0 0;
-    padding: 15px;
-    text-align: center;
+    font-size: 1.5rem;
+    padding: 12px;
   }
-  
+
   .passenger-details-form-group {
-    margin-bottom: 20px;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 12px;
   }
-  
+
   .passenger-details-title {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .passenger-details-total {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #ff6f61;
-  }
-  
-  .passenger-details-button {
-    border-radius: 10px;
-    font-weight: bold;
     font-size: 1.1rem;
-    width: 100%;
   }
-  
+
+  .passenger-details-total {
+    font-size: 1rem;
+  }
+
+  .passenger-details-button {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .passenger-details-card {
+    width: 70%;
+    padding: 20px;
+  }
+
+  .passenger-details-header {
+    font-size: 1.8rem;
+  }
+
+  .passenger-details-form-group {
+    padding: 15px;
+  }
+}

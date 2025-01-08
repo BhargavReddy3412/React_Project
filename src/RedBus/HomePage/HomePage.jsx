@@ -1,21 +1,40 @@
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./HomePage.css";
-import { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
+import { message } from "antd";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { app } from "../FireBase_Folder/FireBase";
+
+
 
 export default function HomePage() {
-  let location = useLocation();
-  let userLogin = location.state?.userLogin || false;
+  const auth = getAuth(app);
+  const { userProfileRTFB, setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     FromAddress: "",
     ToAddress: "",
     SearchDate: "",
   });
-  const navigate = useNavigate();
 
-  // Use useRef to reference the input fields
   const fromAddressRef = useRef(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserProfileRTFB({ name: user.displayName || "User" });
+      } else {
+        message.warning("Please login to access this page.");
+        navigate("/login");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [setUserProfileRTFB, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,72 +43,81 @@ export default function HomePage() {
 
   const handleFindBuses = () => {
     if (!formData.FromAddress || !formData.ToAddress || !formData.SearchDate) {
-      alert("Please fill in all the fields.");
+      message.error("Please fill in all the fields.");
       return;
     }
 
-    if (userLogin) {
-      navigate("/Home/routes", { state: formData });
-    } else {
-      alert("Please Login");
-      navigate("/");
+    const today = new Date();
+    const selectedDate = new Date(formData.SearchDate);
+
+    if (selectedDate < today.setHours(0, 0, 0, 0)) {
+      message.error("The selected date must be today or a future date.");
+      return;
     }
+
+    navigate("/Home/routes", { state: formData });
   };
 
   const handleGetTicketNow = () => {
-    // Focus on the "From" input field when the button is clicked
     fromAddressRef.current.focus();
   };
 
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   return (
-    <>
-      <div className="HomePageContainer">
-        <div className="LeftSide">
-          <h1 className="TravelCaption">Get Your Ticket Online,</h1>
-          <h1 className="TravelCaption">Easy and Safely</h1>
-          <Button variant="success" onClick={handleGetTicketNow}>
-            Get Ticket Now
-          </Button>
-        </div>
-        <div className="RightSide">
-          <h2 className="TravelTicketCaption">Choose Your Ticket</h2>
-          <Card className="mb-2 CardBox">
-            <Card.Body>
-              <div className="searchConatiner">
-                <input
-                  type="text"
-                  name="FromAddress"
-                  placeholder="From"
-                  required
-                  value={formData.FromAddress}
-                  onChange={handleInputChange}
-                  ref={fromAddressRef} // Attach the ref to the "From" input field
-                />
-                <input
-                  type="text"
-                  name="ToAddress"
-                  placeholder="To"
-                  required
-                  value={formData.ToAddress}
-                  onChange={handleInputChange}
-                />
-              </div>
+    <div className="HomePageContainer">
+      <div className="LeftSide">
+        <h1 className="TravelCaption">Get Your Ticket Online,</h1>
+        <h1 className="TravelCaption">Easy and Safely</h1>
+        <Button variant="success" onClick={handleGetTicketNow}>
+          Get Ticket Now
+        </Button>
+      </div>
+      <div className="RightSide">
+        <h2 className="TravelTicketCaption">Choose Your Ticket</h2>
+        <Card className="mb-2 CardBox">
+          <Card.Body>
+            <div className="searchConatiner">
               <input
-                id="SearchDate"
-                type="date"
-                name="SearchDate"
+                type="text"
+                name="FromAddress"
+                placeholder="From"
                 required
-                value={formData.SearchDate}
+                value={formData.FromAddress}
+                onChange={handleInputChange}
+                ref={fromAddressRef}
+              />
+              <input
+                type="text"
+                name="ToAddress"
+                placeholder="To"
+                required
+                value={formData.ToAddress}
                 onChange={handleInputChange}
               />
-
-              <Button variant="success" id="FindBus-btn" onClick={handleFindBuses}>
-                Find Tickets
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
+            </div>
+            <input
+              id="SearchDate"
+              type="date"
+              name="SearchDate"
+              required
+              value={formData.SearchDate}
+              onChange={handleInputChange}
+              min={getTodayDate()}
+            />
+            <Button variant="success" id="FindBus-btn" onClick={handleFindBuses}>
+              Find Tickets
+            </Button>
+          </Card.Body>
+        </Card>
       </div>
-    </>
+    </div>
   );
 }
+

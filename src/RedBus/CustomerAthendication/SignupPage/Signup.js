@@ -1,9 +1,10 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 import "./signup.css";
 import { useNavigate, Link } from "react-router-dom";
 import { app } from "../../FireBase_Folder/FireBase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { message } from 'antd';  // Importing message from antd
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function SignupForm() {
 
     if (signupformData.password !== signupformData.confirmPassword) {
       setErrorMessage("Passwords do not match!");
+      message.error("Passwords do not match!");
       return;
     }
 
@@ -50,16 +52,16 @@ function SignupForm() {
         await set(ref(database, `users/${user.uid}`), {
           name: signupformData.name,
           email: signupformData.email,
-          password:signupformData.password
+          password: signupformData.password
         });
-        
 
-        alert("Sign up successful!");
+        message.success("Sign up successful!");
         navigate("/Login");
       }
     } catch (err) {
       console.error("Firebase error:", err);
       setErrorMessage(`Signup failed: ${err.message}`);
+      message.error(`Signup failed: ${err.message}`);
     }
   };
 
@@ -130,3 +132,4 @@ function SignupForm() {
 }
 
 export default SignupForm;
+

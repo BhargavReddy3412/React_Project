@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
-import axios from "axios"; // To fetch data from Firebase
-import { Card, ListGroup, Spinner } from "react-bootstrap"; // React Bootstrap components
-import "./UserProfile.css"; // Custom CSS for additional styling
+import axios from "axios"; 
+import { Card, ListGroup, Spinner } from "react-bootstrap";  
+import "./UserProfile.css";  
 
 function UserProfile() {
   const userProfileRTFB = useContext(UserProfileInfoRTFBContext);
@@ -17,15 +17,14 @@ function UserProfile() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(url); // Fetch data from Firebase
+        const response = await axios.get(url);  
         const data = response.data;
 
-        // Check if the profile exists
         if (data && data[ProfileUser]) {
           setUserTickets(data[ProfileUser]);
-          setProfileNotFound(false); // Profile found
+          setProfileNotFound(false);  
         } else {
-          setProfileNotFound(true); // No profile found
+          setProfileNotFound(true);  
         }
       } catch (error) {
         console.error("Error fetching user profile:", error);

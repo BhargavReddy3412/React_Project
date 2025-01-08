@@ -1,29 +1,52 @@
+import React, { useContext, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { FaUserCircle } from "react-icons/fa"; // Importing user profile icon
 import "./Navbar.css";
 import RedBusLogo from "../images/RedBusLogo.avif";
 import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { signOut, onAuthStateChanged, getAuth } from "firebase/auth";
+import { app } from "../FireBase_Folder/FireBase";
+
 
 function NavScrollExample() {
+  const auth = getAuth(app);
   const userProfileRTFB = useContext(UserProfileInfoRTFBContext);
   const navigate = useNavigate();
 
- 
-  const isUserLoggedIn = userProfileRTFB.userProfileRTFB?.name !== undefined;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userProfileRTFB.setUserProfileRTFB({ name: user.displayName || "User" });
+      } else {
+        navigate("/login");
+      }
+    });
 
+    return () => unsubscribe();
+  }, [navigate, userProfileRTFB]);
+
+  const isUserLoggedIn = userProfileRTFB.userProfileRTFB?.name !== undefined;
   let username = userProfileRTFB.userProfileRTFB?.name || "user";
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        userProfileRTFB.setUserProfileRTFB({});
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+  };
 
   return (
     <Navbar expand="lg" className="HeaderBox">
       <Container fluid>
-        {/* Common Header Layout */}
         <div className="HeaderRow">
           <Link to="/" className="NavbarLogo">
             <img src={RedBusLogo} alt="RedBus_Logo" id="Logo" />
@@ -49,13 +72,12 @@ function NavScrollExample() {
               Contact
             </Link>
 
-          
             {isUserLoggedIn ? (
               <>
                 <Link to="/profile" className="Nav-item HiddenOnLarge">
                   Profile
                 </Link>
-                <Link to="/login" className="Nav-item HiddenOnLarge">
+                <Link to="/login" className="Nav-item HiddenOnLarge" onClick={handleLogout}>
                   Logout
                 </Link>
               </>
@@ -66,7 +88,6 @@ function NavScrollExample() {
             )}
           </Nav>
 
-          {/* Dropdown for user profile on small screens */}
           <DropdownButton
             align="end"
             id="dropdown-user-profile"
@@ -79,9 +100,9 @@ function NavScrollExample() {
               <>
                 <Dropdown.Item>{username}</Dropdown.Item>
                 <Dropdown.Item onClick={() => navigate("/profile")}>
-                  Profile
+                  Booked Seats
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/login">
+                <Dropdown.Item as={Link} to="/login" onClick={handleLogout}>
                   Logout
                 </Dropdown.Item>
               </>
@@ -98,3 +119,5 @@ function NavScrollExample() {
 }
 
 export default NavScrollExample;
+
+

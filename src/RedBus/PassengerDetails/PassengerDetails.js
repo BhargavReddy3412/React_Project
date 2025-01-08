@@ -8,6 +8,7 @@ import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUs
 import { getDatabase, ref, set, push, get } from "firebase/database";
 import { app } from "../FireBase_Folder/FireBase";
 import "./PassengerDetails.css";
+import { message } from "antd";  
 
 const PassengerDetails = () => {
   const location = useLocation();
@@ -45,7 +46,8 @@ const PassengerDetails = () => {
     );
 
     if (!isValid) {
-      alert("Please fill in all passenger details before proceeding.");
+     message.warning("Please fill in all passenger details before proceeding.");  
+      
       return;
     }
 
@@ -95,7 +97,8 @@ const PassengerDetails = () => {
       existingBookedSeats.push(newSeatData);
       await set(bookedSeatsRef, existingBookedSeats);
 
-      alert("Tickets booked successfully!");
+            message.success("Tickets booked successfully!");  
+      
 
       navigate("/Home/Payment", {
         state: {
@@ -106,7 +109,9 @@ const PassengerDetails = () => {
       });
     } catch (error) {
       console.error("Error storing booking details:", error);
-      alert("There was an error processing your booking. Please try again.");
+       message.warning("TThere was an error processing your booking. Please try again.");  
+
+
     }
   };
 

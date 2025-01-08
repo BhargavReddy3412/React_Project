@@ -6,6 +6,7 @@ import LowerSeat from "./LowerSeatComp";
 import UpperSeat from "./UpperSeatComp";
 import { TravelContext } from "../API/ContextApi/ContextApi";
 import "./SeatBooking.css";
+import { message } from "antd";  
 
 function TextExample() {
   const [allBookedSeats, setAllBookedSeats] = useState({});
@@ -55,12 +56,15 @@ function TextExample() {
 
   const handleBookingSeat = (seatId) => {
     if (seatStatus[seatId]?.gender === "booked") {
-      alert("This seat is already booked.");
+ 
+      message.warning("This seat is already booked.");  
+
       return;
     }
 
     if (isConfirmed) {
-      alert("Seats are confirmed. You cannot change the selection.");
+      message.warning("Seats are confirmed. You cannot change the selection.");  
+      
       return;
     }
 
@@ -86,7 +90,8 @@ function TextExample() {
           [seatId]: { gender, color: gender === "male" ? "gray" : "red" },
         }));
       } else {
-        alert("Please select a gender (Male or Female).");
+      message.warning("Please select a gender (Male or Female).");  
+
       }
     }
   };
@@ -103,7 +108,8 @@ function TextExample() {
 
     navigate("/Home/Details", { state: selectedSeat });
     setIsConfirmed(true);
-    alert("Seats confirmed successfully!");
+    message.success("Seats confirmed successfully!");  
+
     setCnfrm(true);
   };
   return (

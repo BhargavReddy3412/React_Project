@@ -3,17 +3,27 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./HomePage.css";
 import { useNavigate } from "react-router-dom";
-import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
 import { message } from "antd";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
-import { app } from "../FireBase_Folder/FireBase";
-
-
+import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
 
 export default function HomePage() {
-  const auth = getAuth(app);
   const { userProfileRTFB, setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userProfileRTFB) {
+      localStorage.setItem("userProfileRTFB", JSON.stringify(userProfileRTFB));
+    } else {
+      const savedUserProfile = localStorage.getItem("userProfileRTFB");
+      if (savedUserProfile) {
+     
+        setUserProfileRTFB(JSON.parse(savedUserProfile));
+      } else {
+        message.warning("Please login to access this page.");
+        navigate("/login");
+      }
+    }
+  }, [userProfileRTFB, navigate, setUserProfileRTFB]);
 
   const [formData, setFormData] = useState({
     FromAddress: "",
@@ -22,19 +32,6 @@ export default function HomePage() {
   });
 
   const fromAddressRef = useRef(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserProfileRTFB({ name: user.displayName || "User" });
-      } else {
-        message.warning("Please login to access this page.");
-        navigate("/login");
-      }
-    });
-
-    return () => unsubscribe();
-  }, [setUserProfileRTFB, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -120,4 +117,3 @@ export default function HomePage() {
     </div>
   );
 }
-

@@ -1,47 +1,27 @@
-import React, { useContext, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import { FaUserCircle } from "react-icons/fa"; // Importing user profile icon
 import "./Navbar.css";
 import RedBusLogo from "../images/RedBusLogo.avif";
 import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
-import { signOut, onAuthStateChanged, getAuth } from "firebase/auth";
-import { app } from "../FireBase_Folder/FireBase";
-
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 function NavScrollExample() {
-  const auth = getAuth(app);
-  const userProfileRTFB = useContext(UserProfileInfoRTFBContext);
+  const { userProfileRTFB, setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userProfileRTFB.setUserProfileRTFB({ name: user.displayName || "User" });
-      } else {
-        navigate("/login");
-      }
-    });
-
-    return () => unsubscribe();
-  }, [navigate, userProfileRTFB]);
-
-  const isUserLoggedIn = userProfileRTFB.userProfileRTFB?.name !== undefined;
-  let username = userProfileRTFB.userProfileRTFB?.name || "user";
+  const isUserLoggedIn = userProfileRTFB?.name !== undefined;
+  const username = userProfileRTFB?.name || "user";
 
   const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        userProfileRTFB.setUserProfileRTFB({});
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Error logging out:", error);
-      });
+    setUserProfileRTFB(null);
+    localStorage.clear();
+    navigate("/login");
   };
 
   return (
@@ -102,7 +82,7 @@ function NavScrollExample() {
                 <Dropdown.Item onClick={() => navigate("/profile")}>
                   Booked Seats
                 </Dropdown.Item>
-                <Dropdown.Item as={Link} to="/login" onClick={handleLogout}>
+                <Dropdown.Item onClick={handleLogout}>
                   Logout
                 </Dropdown.Item>
               </>
@@ -119,5 +99,4 @@ function NavScrollExample() {
 }
 
 export default NavScrollExample;
-
 

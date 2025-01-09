@@ -7,8 +7,9 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../../FireBase_Folder/FireBase";
 import axios from "axios";
 import { UserProfileInfoRTFBContext } from "../../API/ContextApi/RealTimeDataBaseUserProfile"; 
-import { message } from 'antd';  // Importing message from antd
-import "./LoginPage.css";
+import "./LoginPage.css"
+import { message } from "antd";
+
 
 function LoginForm() {
     const navigate = useNavigate();
@@ -52,7 +53,7 @@ function LoginForm() {
                     if (userKey) {
                         const profile = { id: userKey, ...userProfiles[userKey] };
                         setUserProfile(profile);
-                        setUserProfileRTFB(profile);  // Updating context with user profile
+                        setUserProfileRTFB(profile);  
                     } else {
                         message.error("User profile not found in the database.");
                     }
@@ -62,7 +63,7 @@ function LoginForm() {
             }
         } catch (err) {
             console.error("Login Failed:", err.message);
-            message.error("Invalid credentials. Please try again.");
+            message.error("Invalid credentials. Please try again.");             
         } finally {
             setLoading(false);
         }
@@ -121,3 +122,11 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+ 
+
+
+
+
+
+ 

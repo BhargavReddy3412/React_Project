@@ -1,4 +1,4 @@
- import NavScrollExample from "./NavBar/Navbar";
+import NavScrollExample from "./NavBar/Navbar";
 import HomePage from "./HomePage/HomePage";
 import AboutPage from "./AboutPage/Aboutpage";
 import BlogPage from "./BlogPage/BlogPage";

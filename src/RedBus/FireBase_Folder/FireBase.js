@@ -3,7 +3,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyBVka6J6EcB9l1d3cquZMem4IzhNFCzfhU",
   authDomain: "traveler-authendication.firebaseapp.com",
-  databaseURL: "https://traveler-authendication-default-rtdb.firebaseio.com", // Realtime Database URL added
+  databaseURL: "https://traveler-authendication-default-rtdb.firebaseio.com", 
   projectId: "traveler-authendication",
   storageBucket: "traveler-authendication.appspot.com",
   messagingSenderId: "375695830400",

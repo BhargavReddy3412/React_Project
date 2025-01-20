@@ -109,7 +109,7 @@ const PassengerDetails = () => {
       });
     } catch (error) {
       console.error("Error storing booking details:", error);
-       message.warning("TThere was an error processing your booking. Please try again.");  
+       message.warning("There was an error processing your booking. Please try again.");  
 
 
     }

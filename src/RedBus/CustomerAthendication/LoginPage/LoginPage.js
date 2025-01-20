@@ -10,7 +10,6 @@ import { UserProfileInfoRTFBContext } from "../../API/ContextApi/RealTimeDataBas
 import "./LoginPage.css"
 import { message } from "antd";
 
-
 function LoginForm() {
     const navigate = useNavigate();
     const loginAuth = getAuth(app);
@@ -69,8 +68,13 @@ function LoginForm() {
         }
     };
 
+    const handleGuestLogin = () => {
+        setUserLogin(true);
+        navigate("/Home", { state: { userProfile: null, userLogin: true } });
+    };
+
     useEffect(() => {
-        if (userLogin && userProfile) {
+        if (userLogin && userProfile !== null) {
             message.success("Login Successful!");
             navigate("/Home", { state: { userProfile, userLogin: true } });   
         }
@@ -115,6 +119,13 @@ function LoginForm() {
                             {loading ? "Logging in..." : "Login"}
                         </Button>
                     </Form>
+                    <Button
+                        variant="secondary"
+                        className="guest-button"
+                        onClick={handleGuestLogin}
+                    >
+                        Guest Login
+                    </Button>
                 </Card.Body>
             </Card>
         </div>
@@ -122,8 +133,6 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
- 
 
 
 

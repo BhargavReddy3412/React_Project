@@ -66,6 +66,7 @@ function SignupForm() {
   };
 
   return (
+    <div className="Full-signup-container">
     <div className="signup-container">
       <h2>Signup</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -128,8 +129,18 @@ function SignupForm() {
         </p>
       </div>
     </div>
+    </div>
   );
 }
 
 export default SignupForm;
 
+
+
+
+
+
+
+
+
+ 

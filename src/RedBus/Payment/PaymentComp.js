@@ -135,7 +135,7 @@ const PaymentComp = () => {
                 onClick={handleTicketConform}
                 disabled={!selectedPayment} // Button is disabled if no payment method is selected
               >
-                Proceed to Pay ₹{finalPrice}
+                 Payment Done₹{finalPrice}
               </Button>
             </Card.Body>
           </Card>

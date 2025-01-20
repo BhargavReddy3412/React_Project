@@ -2,28 +2,31 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "./HomePage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { message } from "antd";
 import { UserProfileInfoRTFBContext } from "../API/ContextApi/RealTimeDataBaseUserProfile";
 
 export default function HomePage() {
   const { userProfileRTFB, setUserProfileRTFB } = useContext(UserProfileInfoRTFBContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isGuestUser = location.state?.userLogin && !location.state?.userProfile;
 
   useEffect(() => {
-    if (userProfileRTFB) {
-      localStorage.setItem("userProfileRTFB", JSON.stringify(userProfileRTFB));
+    if (userProfileRTFB || isGuestUser) {
+      if (userProfileRTFB) {
+        localStorage.setItem("userProfileRTFB", JSON.stringify(userProfileRTFB));
+      }
     } else {
       const savedUserProfile = localStorage.getItem("userProfileRTFB");
       if (savedUserProfile) {
-     
         setUserProfileRTFB(JSON.parse(savedUserProfile));
       } else {
         message.warning("Please login to access this page.");
         navigate("/login");
       }
     }
-  }, [userProfileRTFB, navigate, setUserProfileRTFB]);
+  }, [userProfileRTFB, navigate, setUserProfileRTFB, isGuestUser]);
 
   const [formData, setFormData] = useState({
     FromAddress: "",
@@ -117,3 +120,4 @@ export default function HomePage() {
     </div>
   );
 }
+

@@ -57,6 +57,7 @@ const ContactPage = () => {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -69,6 +70,7 @@ const ContactPage = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -83,6 +85,7 @@ const ContactPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -95,6 +98,7 @@ const ContactPage = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -109,6 +113,7 @@ const ContactPage = () => {
                         name="complaint"
                         value={formData.complaint}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -121,6 +126,7 @@ const ContactPage = () => {
                         name="travelName"
                         value={formData.travelName}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -135,6 +141,7 @@ const ContactPage = () => {
                         name="seatNumber"
                         value={formData.seatNumber}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -147,6 +154,7 @@ const ContactPage = () => {
                         name="fromAddress"
                         value={formData.fromAddress}
                         onChange={handleInputChange}
+                        required
                       />
                     </Form.Group>
                   </Col>
@@ -158,6 +166,7 @@ const ContactPage = () => {
                     name="receiveNews"
                     checked={formData.receiveNews}
                     onChange={handleInputChange}
+                    required
                   />
                 </Form.Group>
                 <Form.Group controlId="formReceiveCalls">
@@ -167,6 +176,7 @@ const ContactPage = () => {
                     name="receiveCalls"
                     checked={formData.receiveCalls}
                     onChange={handleInputChange}
+                    required
                   />
                 </Form.Group>
                 <Button variant="primary" type="submit">Submit</Button>

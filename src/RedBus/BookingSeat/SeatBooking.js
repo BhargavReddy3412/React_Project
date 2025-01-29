@@ -9,12 +9,12 @@ import "./SeatBooking.css";
 import { message } from "antd";  
 
 function TextExample() {
-  const [allBookedSeats, setAllBookedSeats] = useState({});
-  const [seatStatus, setSeatStatus] = useState({});
-  const [selectedSeat, setSelectedSeat] = useState({ seat: [], Gender: [] });
-  const [isConfirmed, setIsConfirmed] = useState(false);
-  const [gender, setGender] = useState("");
-  const [cnfrm, setCnfrm] = useState(false);
+  const [allBookedSeats, setAllBookedSeats] = useState({});   //  Stores all booked seats fetched from the Firebase database.
+  const [seatStatus, setSeatStatus] = useState({});         // Tracks the current status (e.g., booked, selected) and visual styling of seats.      
+  const [selectedSeat, setSelectedSeat] = useState({ seat: [], Gender: [] });  // Stores the seats selected by the user and gender.
+  const [isConfirmed, setIsConfirmed] = useState(false);      // Track whether the user has confirmed their selection.
+  const [gender, setGender] = useState("");                   //   Tracks the gender selected for the current seat booking
+  const [cnfrm, setCnfrm] = useState(false);                  // Track whether the user has confirmed their selection.
 
   const { selectedTravel } = useContext(TravelContext);
   const { BusName, FromAddress, ToAddress, BookedDate } = selectedTravel;
@@ -68,7 +68,7 @@ function TextExample() {
       return;
     }
 
-    if (seatStatus[seatId]) {
+    if (seatStatus[seatId]) {                                        // Allows users to deselect a seat they previously selected.
       const updatedSelectedSeats = selectedSeat.seat.filter(
         (seat) => seat !== seatId
       );

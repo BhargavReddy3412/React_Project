@@ -11,23 +11,29 @@ export default function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const isGuestUser = location.state?.userLogin && !location.state?.userProfile;
+ 
+    // Flag to track if the warning message has been shown
+    const warningShownRef = useRef(false);
+  
 
-  useEffect(() => {
-    if (userProfileRTFB || isGuestUser) {
-      if (userProfileRTFB) {
-        localStorage.setItem("userProfileRTFB", JSON.stringify(userProfileRTFB));
-      }
-    } else {
-      const savedUserProfile = localStorage.getItem("userProfileRTFB");
-      if (savedUserProfile) {
-        setUserProfileRTFB(JSON.parse(savedUserProfile));
+
+    useEffect(() => {
+      if (userProfileRTFB || isGuestUser) {
+        if (userProfileRTFB) {
+          localStorage.setItem("userProfileRTFB", JSON.stringify(userProfileRTFB));
+        }
       } else {
-        message.warning("Please login to access this page.");
-        navigate("/login");
+        const savedUserProfile = localStorage.getItem("userProfileRTFB");
+        if (savedUserProfile) {
+          setUserProfileRTFB(JSON.parse(savedUserProfile));
+        } else if (!warningShownRef.current) {
+          // Show the warning message only once
+          message.warning("Please login to access this page.");
+          warningShownRef.current = true;  
+          navigate("/login");
+        }
       }
-    }
-  }, [userProfileRTFB, navigate, setUserProfileRTFB, isGuestUser]);
-
+    }, [userProfileRTFB, navigate, setUserProfileRTFB, isGuestUser]);
   const [formData, setFormData] = useState({
     FromAddress: "",
     ToAddress: "",
@@ -36,11 +42,11 @@ export default function HomePage() {
 
   const fromAddressRef = useRef(null);
 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleFindBuses = () => {
     if (!formData.FromAddress || !formData.ToAddress || !formData.SearchDate) {
       message.error("Please fill in all the fields.");
@@ -57,8 +63,7 @@ export default function HomePage() {
 
     navigate("/Home/routes", { state: formData });
   };
-
-  const handleGetTicketNow = () => {
+ const handleGetTicketNow = () => {
     fromAddressRef.current.focus();
   };
 

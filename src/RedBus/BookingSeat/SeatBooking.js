@@ -108,12 +108,13 @@ function TextExample() {
 
     navigate("/Home/Details", { state: selectedSeat });
     setIsConfirmed(true);
-    message.success("Seats confirmed successfully!");  
+    message.success("Seats confirmed and do Payment!");  
 
     setCnfrm(true);
   };
   return (
     <div className="BookingContainer">
+      <div className="Radio-div">
       <p>Click on an Available seat to proceed with your transaction.</p>
 
       <div>
@@ -138,6 +139,7 @@ function TextExample() {
         <label className="InputRadio-Btn">
           <b>Female</b>
         </label>
+      </div>
       </div>
 
       <Card className="UpperDesk">
@@ -425,17 +427,17 @@ function TextExample() {
 
         <div className="Seat-Info">
           <h3>Seat Info</h3>
-          <div>
+          <div className="Seat-Info-Info">
             <p id="SeatInfo-Avaliable"></p>
             <p>Available</p>
           </div>
 
-          <div>
+          <div className="Seat-Info-Info">
             <p id="SeatInfo-UnAvaliable"></p>
             <p>Male</p>
           </div>
 
-          <div>
+          <div className="Seat-Info-Info">
             <p id="SeatInfo-Female"></p>
             <p>Female</p>
           </div>

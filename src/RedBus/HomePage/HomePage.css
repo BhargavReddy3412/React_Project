@@ -1,15 +1,15 @@
-
 .HomePageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url("https://media.istockphoto.com/vectors/bus-stop-on-main-street-citypublic-park-with-bench-and-bus-stop-with-vector-id903584510?k=6&m=903584510&s=612x612&w=0&h=qglAFIgQe5GSNLmxwycSQ2Z2l5DboKD9NvOgviSTh6k=");
-  background-size: cover;  
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   padding: 20px;
   overflow: hidden;
+  position: relative;
 }
 
 .LeftSide,
@@ -19,24 +19,17 @@
   align-items: center;
   text-align: center;
   padding: 20px;
-  color: white;  
-}
-
-.LeftSide {
+  color: white;
   flex: 1;
 }
 
-.RightSide {
-  flex: 1;
-}
-
- .TravelCaption {
+.TravelCaption {
   font-size: 2.5rem;
   margin-bottom: 20px;
   animation: fadeIn 1s ease-out;
 }
 
-.TravelTicketCaption{
+.TravelTicketCaption {
   font-size: 2rem;
   margin-bottom: 20px;
   animation: fadeIn 1s ease-out;
@@ -46,18 +39,25 @@ button {
   margin-top: 20px;
 }
 
-.searchConatiner {
+.searchContainer {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
-.searchConatiner input {
+.searchContainer input {
   width: 13rem;
   height: 2.5rem;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.searchContainer input:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 #SearchDate {
@@ -67,6 +67,12 @@ button {
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  transition: all 0.3s;
+}
+
+#SearchDate:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 .CardBox {
@@ -75,8 +81,9 @@ button {
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.8);  
+  background-color: rgba(255, 255, 255, 0.8);
   animation: slideIn 1s ease-out;
+  
 }
 
 #FindBus-btn {
@@ -109,7 +116,7 @@ button {
   .HomePageContainer {
     flex-direction: column;
     justify-content: flex-start;
-    height: auto;  
+    min-height: 100vh;
     padding: 10px;
   }
 
@@ -119,13 +126,13 @@ button {
     padding: 15px;
   }
 
-  .searchConatiner {
+  .searchContainer {
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
   }
 
-  .searchConatiner input {
+  .searchContainer input {
     width: 100%;
     height: 2.5rem;
   }
@@ -145,6 +152,7 @@ button {
 @media (max-width: 768px) {
   .HomePageContainer {
     padding: 10px;
+    min-height: 110vh;
   }
 
   .LeftSide,
@@ -154,13 +162,13 @@ button {
     padding: 20px;
   }
 
-  .searchConatiner {
+  .searchContainer {
     flex-direction: column;
     gap: 15px;
     width: 100%;
   }
 
-  .searchConatiner input,
+  .searchContainer input,
   #SearchDate {
     width: 100%;
     height: 2.5rem;
@@ -171,34 +179,28 @@ button {
     padding: 20px;
   }
 
- .TravelCaption {
+  .TravelCaption {
     font-size: 2rem;
   }
 
- .TravelTicketCaption{
+  .TravelTicketCaption {
     font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .HomePageContainer {
-    padding: 5px;
-  margin-top: 78px;
-
-  }
-
   .LeftSide,
   .RightSide {
     width: 100%;
     padding: 10px;
   }
 
-  .searchConatiner {
+  .searchContainer {
     flex-direction: column;
     gap: 10px;
   }
 
-  .searchConatiner input,
+  .searchContainer input,
   #SearchDate {
     width: 100%;
     height: 2.5rem;
@@ -209,12 +211,45 @@ button {
     padding: 20px;
   }
 
- .TravelCaption {
+  .TravelCaption {
     font-size: 1.5rem;
   }
 
-.TravelTicketCaption {
+  .TravelTicketCaption {
     font-size: 1.2rem;
   }
 }
 
+.suggestionsBox {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 10;
+}
+
+.suggestionsContainer {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.suggestionItem {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.suggestionItem:hover {
+  background-color: #f0f0f0;
+}
+
+.suggestionItem span {
+  font-size: 14px;
+}
+
+/* Focused styles for better user experience */
+.suggestionItem:focus,
+.searchContainer input:focus {
+  outline: 2px solid #007bff;
+}

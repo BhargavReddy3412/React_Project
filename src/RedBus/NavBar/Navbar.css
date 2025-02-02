@@ -1,13 +1,23 @@
- 
 .HeaderBox {
   position: sticky !important;
- 
   top: 0;
   width: 100%;
   z-index: 999;
   background-color: #444;
   padding: 0.5rem 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.HeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.NavbarLogo {
+  flex-shrink: 0;
 }
 
 #Logo {
@@ -38,15 +48,19 @@
   color: white;
 }
 
- 
-
-
 .HiddenOnSmall {
-  display: none ;
+  display: none;
 }
 
- 
-@media (min-width: 769px) {
+.Navbar .navbar-toggler {
+  position: absolute;
+  right: 20px;  
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+}
+
+@media (min-width: 900px) {
   .HeaderRow {
     display: flex;
     justify-content: space-between;
@@ -67,18 +81,35 @@
     margin-left: 20px;
   }
 
- 
   .HiddenOnLarge {
     display: none !important;
   }
 
-  
   .HiddenOnSmall {
     display: inline-block;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 899px) and (min-width: 700px) {
+  .HeaderRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .NavbarLogo img {
+    height: 45px;
+  }
+
+  .Navbar .navbar-toggler {
+    position: absolute;
+    right: 20px;  
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 700px) {
   .HeaderRow {
     display: flex;
     justify-content: space-between;
@@ -87,7 +118,7 @@
   }
 
   .NavbarLogo {
-    margin:0,10px ;
+    margin: 0 10px;
   }
 
   .NavBox {
@@ -100,12 +131,11 @@
     text-align: center;
   }
 
- 
   .HiddenOnLarge {
-    display: inline-block;  
+    display: inline-block;
   }
 
   .HiddenOnSmall {
-    display: none; 
+    display: none;
   }
 }

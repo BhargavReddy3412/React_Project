@@ -97,7 +97,7 @@ const PassengerDetails = () => {
       existingBookedSeats.push(newSeatData);
       await set(bookedSeatsRef, existingBookedSeats);
 
-            message.success("Tickets booked successfully!");  
+          
       
 
       navigate("/Home/Payment", {

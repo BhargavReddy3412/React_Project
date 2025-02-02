@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Carousel from "react-bootstrap/Carousel";
 import { useLocation, useNavigate } from "react-router-dom";
+import { message } from "antd";   
 import "./PaymentComp.css";
 const PaymentComp = () => {
   let Navigate = useNavigate();
@@ -18,7 +19,7 @@ const PaymentComp = () => {
   const [ticketPrice, setTicketPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [couponCode, setCouponCode] = useState("");
-  const [message, setMessage] = useState("");
+  const [couponmessage, setcouponMessage] = useState("");
   const [selectedPayment, setSelectedPayment] = useState("");
 
   const coupons = [
@@ -37,13 +38,13 @@ const PaymentComp = () => {
     const coupon = coupons.find((c) => c.code === couponCode);
     if (coupon && coupon.code === "DISCOUNT50") {
       setDiscount(50);
-      setMessage("Coupon applied successfully! You saved ₹50.");
+      setcouponMessage("Coupon applied successfully! You saved ₹50.");
     } else if (coupon && coupon.code === "SAVE20") {
       setDiscount(20);
-      setMessage("Coupon applied successfully! You saved ₹20.");
+      setcouponMessage("Coupon applied successfully! You saved ₹20.");
     } else {
       setDiscount(0);
-      setMessage("Invalid coupon code. Please try again.");
+      setcouponMessage("Invalid coupon code. Please try again.");
     }
   };
 
@@ -53,7 +54,9 @@ const PaymentComp = () => {
 
   const finalPrice = ticketPrice - discount;
 
-  const handleTicketConform = () => {
+  const   handleTicketConform = () => {
+
+    message.success('paymet successfully and Booked your tickets')
     Navigate("/Home/TicketConform", {
       state: {
         TicketSeats: PaymentBookedSeat,
@@ -112,8 +115,8 @@ const PaymentComp = () => {
                 </Button>
               </InputGroup>
 
-              {message && (
-                <Alert variant={discount > 0 ? "success" : "danger"}>{message}</Alert>
+              {couponmessage && (
+                <Alert variant={discount > 0 ? "success" : "danger"}>{couponmessage}</Alert>
               )}
 
               <div className="d-flex justify-content-between mt-4">
@@ -135,7 +138,8 @@ const PaymentComp = () => {
                 onClick={handleTicketConform}
                 disabled={!selectedPayment} // Button is disabled if no payment method is selected
               >
-                 Payment Done₹{finalPrice}
+              
+                  Payment Done
               </Button>
             </Card.Body>
           </Card>

@@ -1,5 +1,5 @@
 .contact-page {
-    margin-top: 50px;
+    margin-top: -68px;
   }
   .ContactPage-cardContainetr{
     width: 10000px !important;
@@ -36,3 +36,10 @@
     width: 100%;
   }
   
+
+  @media screen and (min-width:320px) and (max-width:480px)  {
+    .contact-page {
+      margin-top: -30px;
+    }
+
+  }

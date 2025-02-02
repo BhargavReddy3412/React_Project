@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+ import React, { useState, useEffect, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -68,9 +68,40 @@ function LoginForm() {
         }
     };
 
-    const handleGuestLogin = () => {
-        setUserLogin(true);
-        navigate("/Home", { state: { userProfile: null, userLogin: true } });
+    const handleGuestLogin = async () => {
+        setLoginFormData({
+            email: "guest@gmail.com",
+            password: "123456",
+        });
+
+        try {
+            // Sign in with guest credentials
+            await signInWithEmailAndPassword(loginAuth, "guest@gmail.com", "123456");
+
+            // After successful login, fetch guest data
+            const RealTimeFirebaseUrl = "https://traveler-authendication-default-rtdb.firebaseio.com/users.json";
+            const ResponseData = await axios.get(RealTimeFirebaseUrl);
+
+            if (ResponseData.data) {
+                const userProfiles = ResponseData.data;
+                const userKey = Object.keys(userProfiles).find((key) => userProfiles[key].email === "guest@gmail.com");
+
+                if (userKey) {
+                    const profile = { id: userKey, ...userProfiles[userKey] };
+                    setUserProfile(profile);
+                    setUserProfileRTFB(profile);  
+                    message.success("Guest Login Successful!");
+                    navigate("/Home", { state: { userProfile: profile, userLogin: true } });
+                } else {
+                    message.error("Guest profile not found in the database.");
+                }
+            } else {
+                message.error("No user data available in the database.");
+            }
+        } catch (err) {
+            console.error("Guest Login Failed:", err.message);
+            message.error("Guest login failed. Please try again.");
+        }
     };
 
     useEffect(() => {
@@ -133,9 +164,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-
-
-
-
- 

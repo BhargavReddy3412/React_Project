@@ -51,7 +51,7 @@ export default function FindRoutes() {
           />
         ))
       ) : (
-        <p>No routes found for the selected criteria.</p>
+        <p className="NODATA-ROUTE">No routes found for the selected criteria.</p>
       )}
     </div>
     </>

@@ -1,1 +1,4 @@
- 
+ .NODATA-ROUTE{
+    display: flex;
+   justify-content: center;
+ }
